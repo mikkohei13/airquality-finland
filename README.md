@@ -14,7 +14,7 @@ You can set the background of your Android device to change colour based on the 
 
 ### Install WebLiveWallpaper app
 
-- Install WebLiveWallpaper app for Android
+- Install [WebLiveWallpaper app](https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper&hl=en) for Android
 - Open it from Wallpapers > Live Wallpapers
 - Settings > New
 -- Source YOURDOMAIN/PATH/colour.php
