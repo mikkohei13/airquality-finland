@@ -1,20 +1,29 @@
 
-Air quality API
+API fo Finnish air quality data
+===============================
+
+This API scrapes air quality data from ilmanlaatuportaali.fi -portal, and presents it as a RESTful JSON API.
+
+Requires [Simple HTML DOM Parser](http://simplehtmldom.sourceforge.net); set path to this in index.php.
 
 
+Android wallpaper
+-----------------
 
-WebLiveWallpaper app for Android
-Settings > New
-Enter source .../colour.php
-Refresh 600
-View settings
-Website snapshot: check
-Visible area: 0-0-100-100
-Save, enter name
+You can set the background of your Android device to change colour based on the air quality data.
 
-Start > My sites
-select name you entered
-Wait
-Set wallpaper
+### Install WebLiveWallpaper app
 
-
+- Install WebLiveWallpaper app for Android
+- Open it from Wallpapers > Live Wallpapers
+- Settings > New
+-- Source YOURDOMAIN/PATH/colour.php
+-- Refresh 600
+- View settings
+- Website snapshot: check
+- Visible area: 0-0-100-100
+- Save & enter name
+- Start > My sites
+- Select name you entered
+- (wait)
+- Click Set wallpaper
