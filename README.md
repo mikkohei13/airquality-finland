@@ -47,7 +47,8 @@ According to the portal, you are free to
 TODO
 ----
 
-- Index calculation: http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
+- Index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
+- Handle null data (at midnight)
 - Documentation
 - City validation
 - Station validation: can be tricky because portal returns summary data if number is invalid, and scraper freezes when reading the summary table

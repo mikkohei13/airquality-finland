@@ -17,3 +17,6 @@ particulateslt2.5um
 carbonmonoxide
 ozone
 
+TRS ?
+SO2 ?
+

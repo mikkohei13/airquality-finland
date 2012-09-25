@@ -49,7 +49,7 @@ Class airquality
 			
 			if (FALSE === $dataArray)
 			{
-				$this->message .= "this station doesn't have this measurement<br />";
+				$this->message .= "this station doesn't have this measurement for today<br />";
 				$errorArray['error'] = TRUE;
 				$errorArray['message'] = $this->message;
 				return $errorArray;
@@ -73,21 +73,57 @@ Class airquality
 	
 	// DRAFT
 	
-	/*
+
 	public function qualityIndex()
 	{
-		$NO2 = NO2(); 
-		$O3 = O3();
+		$nitrogendioxide = $this->measurement("nitrogendioxide");
+		$nitrogendioxide = $nitrogendioxide['latest']['data'];
 		
-		$limit[5]['NO2'] = 100;	
+		$particulateslt2_5um = $this->measurement("particulateslt2.5um");
+		$particulateslt2_5um = $particulateslt2_5um['latest']['data'];
 		
-		if ($NO2 > $limit[5]['NO2'] || $NO2 > $limit[5]['O3'])
+		$particulateslt10um = $this->measurement("particulateslt10um");
+		$particulateslt10um = $particulateslt10um['latest']['data'];
+		
+		$carbonmonoxide = $this->measurement("carbonmonoxide");
+		$carbonmonoxide = $carbonmonoxide['latest']['data'];
+		
+		$ozone = $this->measurement("ozone");
+		$ozone = $ozone['latest']['data'];
+		
+//		$particulateslt10um = 21; // DEBUG
+
+		
+		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
+		// TODO: tarkista että mittayksiköt oikein
+		
+		if (NULL == $nitrogendioxide && NULL == $particulateslt2_5um && NULL == $particulateslt10um && NULL == $carbonmonoxide && NULL == $ozone)
 		{
-			$index = 5;
+			echo "EI TIETOA";
+		}
+		elseif ($nitrogendioxide > 200 || $particulateslt2_5um > 75 || $particulateslt10um > 200 || $carbonmonoxide > 30 || $ozone > 180)
+		{
+			echo "ERITTÄIN HUONO";
+		}
+		elseif ($nitrogendioxide > 150 || $particulateslt2_5um > 50 || $particulateslt10um > 100 || $carbonmonoxide > 20 || $ozone > 140)
+		{
+			echo "HUONO";
+		}
+		elseif ($nitrogendioxide > 70 || $particulateslt2_5um > 25 || $particulateslt10um > 50 || $carbonmonoxide > 8 || $ozone > 100)
+		{
+			echo "VÄLTTÄVÄ";
+		}
+		elseif ($nitrogendioxide > 40 || $particulateslt2_5um > 10 || $particulateslt10um > 20 || $carbonmonoxide > 4 || $ozone > 60)
+		{
+			echo "TYYDYTTÄVÄ";
+		}
+		else 
+		{
+			echo "HYVÄ";
 		}
 		
 	}
-	*/
+
 	
 	// ------------------------------------------------------------------------
 	// Scrapes a measurement
@@ -127,7 +163,7 @@ Class airquality
 		{
 			$data[$row->find('td', 0)->plaintext] = $row->find('td', 1)->plaintext;
 		}
-		
+
 		// Generate array
 		// metadata fields
 		$result['error'] = FALSE;
@@ -140,6 +176,12 @@ Class airquality
 			// Station doesn't have this measurement
 			return FALSE;
 		}
+		elseif (empty($data))
+		{
+			// Station doesn't have measurements for today
+			return FALSE;
+		}
+
 		
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
 		$result['metadata']['sourceURL'] = $urlHome;
