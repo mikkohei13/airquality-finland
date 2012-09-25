@@ -1,7 +1,8 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8'); 
+header('Content-Type: text/html; charset=UTF-8');
+ 
 require_once "config.php";
-require_once "../include/simplehtmldom/simple_html_dom.php";
+require_once $simplehtmldomPath;
 
 /*
 Ilmanlaatuportaalin toimintalogiikka:

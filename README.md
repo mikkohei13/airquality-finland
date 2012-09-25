@@ -4,7 +4,11 @@ API fo Finnish air quality data
 
 This API scrapes air quality data from http://www.ilmanlaatuportaali.fi -portal, and presents it as a RESTful JSON API.
 
-Requires [Simple HTML DOM Parser](http://simplehtmldom.sourceforge.net); set path to this in index.php.
+
+Technical notes
+---------------
+
+Requires [Simple HTML DOM Parser 1.5](http://simplehtmldom.sourceforge.net); set path to this in config.php.
 
 
 Android wallpaper
@@ -33,7 +37,8 @@ Data terms of use
 -----------------
 
 According to the portal, you are free to 
--use the data for non-commercial purposes, research and teaching
--publish the data for public communication
+
+-Use the data for non-commercial purposes, research and teaching
+-Publish the data for public communication
 
 ...provided you credit the http://www.ilmanlaatuportaali.fi as the source.
