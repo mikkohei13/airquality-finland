@@ -2,7 +2,7 @@
 API fo Finnish air quality data
 ===============================
 
-This API scrapes air quality data from ilmanlaatuportaali.fi -portal, and presents it as a RESTful JSON API.
+This API scrapes air quality data from http://www.ilmanlaatuportaali.fi -portal, and presents it as a RESTful JSON API.
 
 Requires [Simple HTML DOM Parser](http://simplehtmldom.sourceforge.net); set path to this in index.php.
 
@@ -27,3 +27,13 @@ You can set the background of your Android device to change colour based on the 
 - Select name you entered
 - (wait)
 - Click Set wallpaper
+
+
+Data terms of use
+-----------------
+
+According to the portal, you are free to 
+-use the data for non-commercial purposes, research and teaching
+-publish the data for public communication
+
+...provided you credit the http://www.ilmanlaatuportaali.fi as the source.
