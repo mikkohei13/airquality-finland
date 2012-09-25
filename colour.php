@@ -4,7 +4,7 @@ require_once "config.php";
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Get data
 
-$url = $basePath . "?p=nitrogendioxide&rs=86&ss=564";
+$url = $basePath . "?p=qualityIndex&rs=86&ss=564";
 
 $client = curl_init($url);
 curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
@@ -18,7 +18,9 @@ $latest = $data['latest']['data'];
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Calculate color
 
-if ($latest < 10)
+if ($latest == NULL)
+	$bgcolor = "#000";
+elseif ($latest < 10)
 	$bgcolor = "#007900";
 elseif ($latest < 20)
 	$bgcolor = "#00FF00";
