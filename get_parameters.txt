@@ -1,14 +1,16 @@
 
-City
-----
+City - rs
+---------
 86	Helsinki
+60	Espoo
 
-Station
--------
+Station - ss
+------------
 564	Mannerheimintie, Helsinki
+841	Leppävaara, Espoo
 
-Measurement
------------
+Measurement - p
+---------------
 nitrogendioxide
 particulateslt10um
 particulateslt2.5um

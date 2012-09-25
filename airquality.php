@@ -47,6 +47,14 @@ Class airquality
 		{
 			$dataArray = $this->scrapeMeasurement($type);
 			
+			if (FALSE === $dataArray)
+			{
+				$this->message .= "this station doesn't have this measurement<br />";
+				$errorArray['error'] = TRUE;
+				$errorArray['message'] = $this->message;
+				return $errorArray;
+			}
+			
 //			echo "<pre>"; print_r ($dataArray); exit(); // Debug
 			return $dataArray;
 		}
@@ -124,11 +132,18 @@ Class airquality
 		// metadata fields
 		$result['error'] = FALSE;
 		
+		$result['metadata']['station'] = $data['Tunti'];
+		unset($data['Tunti']);
+		
+		if (NULL == $result['metadata']['station'])
+		{
+			// Station doesn't have this measurement
+			return FALSE;
+		}
+		
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
 		$result['metadata']['sourceURL'] = $urlHome;
 		$result['metadata']['status'] = "unconfirmed measurements";
-		$result['metadata']['station'] = $data['Tunti'];
-		unset($data['Tunti']);
 		$result['metadata']['measurement'] = $type;
 
 		// Save all data as todays data
