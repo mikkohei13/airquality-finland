@@ -46,11 +46,11 @@ According to the portal, you are free to
 TODO
 ----
 
+- Index calculation: http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
 - City/station selection
 - Measurement selection
-- Index scraping
 - Caching?
-- Additional sources? Are these duplicate to ilmanlaatuportaali.fi:
+- Additional sources? Are these duplicates to ilmanlaatuportaali.fi?
  - hel.fi
  - HSL
 
