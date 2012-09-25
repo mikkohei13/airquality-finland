@@ -48,8 +48,10 @@ TODO
 ----
 
 - Index calculation: http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
-- City/station selection
-- Measurement selection
+- Documentation
+- City validation
+- Station validation: can be tricky because portal returns summary data if number is invalid, and scraper freezes when reading the summary table
+- Scrape error handling: portal is offline or changes
 - Caching?
 - Additional sources? Are these duplicates to ilmanlaatuportaali.fi?
  - hel.fi

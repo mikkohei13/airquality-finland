@@ -16,6 +16,8 @@ Ilmanlaatuportaalin toimintalogiikka:
 2) Palvelu tallentaa valinnasta tietoja evästeeseen
 3) Sivulla olevaan iframeen latautuu taulukkosivu, jossa mittaustiedot ovat. Sivu hakee mittauspaikan numeron, päivämäärän ja kellonajan GET-parametristaan, sekä ainakin mittaustiedon evästeestä.
 	- aseman numero tulee GET-parametristam, evästeellä ei ole vaikutusta
+	- mikäli kaupungin numero on epäkelpo, palautetaan edellisen kerran valitun mittauspisteen tiedot(?)
+	- mikäli aseman numero on epäkeltp, palautetaan yhteenveto kaupungin tuloksista
 	-> http://www.ilmanlaatu.fi/php/table/observationsInTable.php?step=3600&today=1&timesequence=23&time=2012092210&station=841
 	
 Koska osa taulukkosivun tarvitsemasta tiedosta tulee GET-parametrista ja osa evästeestä, on sivun käyttäminen hieman kinkkistä. Valintasivu pitää ensin hakea ja eväste tallentaa, taulukkosivun voi hakea vasta tämän jälkeen. Pelkän taulukkosivun hakeminen aiheuttaa internal server errorin.
