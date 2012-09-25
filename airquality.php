@@ -37,16 +37,23 @@ Class airquality
 	
 	public function measurement($type)
 	{
+		// If error with city or station
 		if ("" != $this->message)
 		{
 			$errorArray['error'] = TRUE;
 			$errorArray['message'] = $this->message;
 			return $errorArray;
 		}
+		elseif ($type == "qualityIndex")
+		{
+			$dataArray = $this->qualityIndex($type);
+			return $dataArray;
+		}
 		elseif ($type == "nitrogendioxide" || $type == "particulateslt10um" || $type == "particulateslt2.5um" || $type == "carbonmonoxide" || $type == "ozone")
 		{
 			$dataArray = $this->scrapeMeasurement($type);
 			
+			// If this data is missing
 			if (FALSE === $dataArray)
 			{
 				$this->message .= "this station doesn't have this measurement for today<br />";
@@ -58,6 +65,7 @@ Class airquality
 //			echo "<pre>"; print_r ($dataArray); exit(); // Debug
 			return $dataArray;
 		}
+		// If error with measurement name
 		else
 		{
 			$this->message .= "unsupported p (measurement)<br />";
@@ -99,29 +107,33 @@ Class airquality
 		
 		if (NULL == $nitrogendioxide && NULL == $particulateslt2_5um && NULL == $particulateslt10um && NULL == $carbonmonoxide && NULL == $ozone)
 		{
-			echo "EI TIETOA";
+			$result['error'] = TRUE;
+			$result['message'] = "this station doesn't yet have an air quality index for today<br />";
+			return $result;
 		}
 		elseif ($nitrogendioxide > 200 || $particulateslt2_5um > 75 || $particulateslt10um > 200 || $carbonmonoxide > 30 || $ozone > 180)
 		{
-			echo "ERITTÄIN HUONO";
+			$result['latest']['data'] = "erittäin huono";
 		}
 		elseif ($nitrogendioxide > 150 || $particulateslt2_5um > 50 || $particulateslt10um > 100 || $carbonmonoxide > 20 || $ozone > 140)
 		{
-			echo "HUONO";
+			$result['latest']['data'] = "huono";
 		}
 		elseif ($nitrogendioxide > 70 || $particulateslt2_5um > 25 || $particulateslt10um > 50 || $carbonmonoxide > 8 || $ozone > 100)
 		{
-			echo "VÄLTTÄVÄ";
+			$result['latest']['data'] = "välttävä";
 		}
 		elseif ($nitrogendioxide > 40 || $particulateslt2_5um > 10 || $particulateslt10um > 20 || $carbonmonoxide > 4 || $ozone > 60)
 		{
-			echo "TYYDYTTÄVÄ";
+			$result['latest']['data'] = "tyydyttävä";
 		}
 		else 
 		{
-			echo "HYVÄ";
+			$result['latest']['data'] = "hyvä";
 		}
 		
+		$result['error'] = FALSE;
+		return $result;
 	}
 
 	

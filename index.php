@@ -35,7 +35,7 @@ http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=60&ss=841&p=nitroge
 
 $airquality = new airquality($_GET["rs"], $_GET["ss"]);
 
-$airquality->qualityIndex();
+print_r ($airquality->qualityIndex());
 
 /*
 $result = $airquality->measurement($_GET["p"]);
