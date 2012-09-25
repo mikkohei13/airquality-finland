@@ -135,24 +135,16 @@ Class airquality
 		$result['today'] = $data;
 
 		// save latest also as latest
-		$data = array_reverse($data, TRUE);
-		for ($i = 0; ! array_shift(array_values($data)); $i++)
-		{
-			array_shift($data);
-		}
-		$result['latest']['time'] = key($data);
-		$result['latest']['data'] = array_shift($data);
-
-/*		
-		$temp = array_slice($data, -1, 1);
+		$temp = array_slice($data, -1, 1, TRUE);
 
 		// if latest is empty, take measurement before that
 		if (empty($temp[0]['data']))
 		{
-			$temp = array_slice($data, -2, 1);
+			$temp = array_slice($data, -2, 1, TRUE);
 		}
-		$result['latest'] = $temp[0];
-*/
+
+		$result['latest']['data'] = $temp[key($temp)];
+		$result['latest']['time'] = key($temp);
 
 		return $result;
 	}
