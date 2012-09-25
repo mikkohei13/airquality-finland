@@ -53,6 +53,6 @@ body {
 </style>
 </head>
 <body>
-<p id="latest"><?php echo str_replace(".", ",", $latest); ?></p>
+<p id="latest"><?php echo str_replace(".", ",", $latest) . " @ " . $data['latest']['time']; ?></p>
 </body>
 </html>

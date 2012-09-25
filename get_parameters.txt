@@ -1,0 +1,17 @@
+
+City
+----
+86	Helsinki
+
+Station
+-------
+564	Mannerheimintie, Helsinki
+
+Measurement
+-----------
+nitrogendioxide
+particulateslt10um
+particulateslt2.5um
+carbonmonoxide
+ozone
+

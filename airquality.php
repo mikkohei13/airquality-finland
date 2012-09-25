@@ -12,41 +12,50 @@ Class airquality
 	
 	public function __construct($city, $station)
 	{
-		if ($city == (int) $city)
+		if (is_numeric($city) && $city == (int) $city)
 		{
 			$this->city = $city;
 		}
 		else
 		{
-			$this->$message .= "rs (city) must be a number";
+			$this->message .= "rs (city) must be a number";
 		}
 
-		if ($station == (int) $station)
+		if (is_numeric($station) && $station == (int) $station)
 		{
 			$this->station = $station;
 		}
 		else
 		{
-			$this->$message .= "ss (station) must be a number";
+			$this->message .= "ss (station) must be a number";
 		}
 	}
 	
 	// ------------------------------------------------------------------------
-	// Returns measurement
+	// Returns measurement or error message as an array
 	// Checks that type is valid
 	
 	public function measurement($type)
 	{
-		if ($type == "nitrogendioxide" || $type == "particulateslt10um" || $type == "particulateslt2.5um" || $type == "carbonmonoxide" || $type == "ozone")
+		if ("" != $this->message)
+		{
+			$errorArray['error'] = TRUE;
+			$errorArray['message'] = $this->message;
+			return $errorArray;
+		}
+		elseif ($type == "nitrogendioxide" || $type == "particulateslt10um" || $type == "particulateslt2.5um" || $type == "carbonmonoxide" || $type == "ozone")
 		{
 			$dataArray = $this->scrapeMeasurement($type);
 			
-			echo "<pre>"; print_r ($dataArray); // Debug
+//			echo "<pre>"; print_r ($dataArray); exit(); // Debug
+			return $dataArray;
 		}
 		else
 		{
-			$this->$message .= "unsupported p (measurement)<br />";
-			return FALSE;
+			$this->message .= "unsupported p (measurement)<br />";
+			$errorArray['error'] = TRUE;
+			$errorArray['message'] = $this->message;
+			return $errorArray;
 		}
 	}
 	
@@ -106,25 +115,23 @@ Class airquality
 		$html = str_get_html($output); 
 		$table = $html->find('table', 0);
 
-		$rowID = 0;
 		foreach($table->find('tr') as $row)
 		{
 			$data[$row->find('td', 0)->plaintext] = $row->find('td', 1)->plaintext;
-			$rowID++;
 		}
 		
 		// Generate array
 		// metadata fields
 		$result['error'] = FALSE;
 		
-		$metadata = array_shift($data);
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
 		$result['metadata']['sourceURL'] = $urlHome;
 		$result['metadata']['status'] = "unconfirmed measurements";
-		$result['metadata']['station'] = $metadata['data'];
+		$result['metadata']['station'] = $data['Tunti'];
+		unset($data['Tunti']);
 		$result['metadata']['measurement'] = $type;
 
-		// save all data as data
+		// Save all data as todays data
 		$result['today'] = $data;
 
 		// save latest also as latest

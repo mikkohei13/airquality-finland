@@ -1,8 +1,9 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8');
+header('Content-Type: application/json; charset=utf-8');
  
 require_once "config.php";
 require_once $simplehtmldomPath;
+require_once "airquality.php";
 
 /*
 Ilmanlaatuportaalin toimintalogiikka:
@@ -30,106 +31,9 @@ http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=60&ss=841&p=nitroge
 
 */
 
-
-require_once "airquality.php";
-
 $airquality = new airquality($_GET["rs"], $_GET["ss"]);
-$airquality->measurement("nitrogendioxide");
-
-
-/*
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Get vars
-
-if ($_GET["p"] == "nitrogendioxide" || $_GET["p"] == "particulateslt10um" || $_GET["p"] == "particulateslt2.5um" || $_GET["p"] == "carbonmonoxide" || $_GET["p"] == "ozone")
-{
-	$measurement = $_GET["p"];
-}
-else
-{
-	exit("unsupported p (measurement)");
-}
-
-if ($_GET["rs"] == (int) $_GET["rs"])
-{
-	$city = $_GET["rs"];
-}
-else
-{
-	exit("rs (city) must be a number");
-}
-
-if ($_GET["ss"] == (int) $_GET["ss"])
-{
-	$station = $_GET["ss"];
-}
-else
-{
-	exit("ss (station) must be a number");
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Screen scrape
-
-$pv = date("d.m.Y");
-$urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=" . $city . "&ss=" . $station . "&p=" . $measurement . "&pv=" . $pv . "&j=23&et=table&tj=3600&ls=suomi";
-
-$time = date("YmdH");
-$url = "http://www.ilmanlaatu.fi/php/table/observationsInTable.php?step=3600&today=1&timesequence=23&time=" . $time . "&station=" . $station . "";
-
-// STEP 1. let’s create a cookie file
-$ckfile = tempnam ("/tmp", "CURLCOOKIE");
-// STEP 2. visit the homepage to set the cookie properly
-$ch = curl_init ($urlHome);
-curl_setopt ($ch, CURLOPT_COOKIEJAR, $ckfile); 
-curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-$output = curl_exec ($ch);
-// STEP 3. visit cookiepage.php
-$ch = curl_init ($url);
-curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile); 
-curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-$output = curl_exec ($ch);
-
-$output = utf8_encode($output);
-
-
-$html = str_get_html($output); 
-$table = $html->find('table', 0);
-
-$rowID = 0;
-foreach($table->find('tr') as $row)
-{
-	$data[$rowID]['time'] = $row->find('td', 0)->plaintext;
-	$data[$rowID]['data'] = $row->find('td', 1)->plaintext;
-	$rowID++;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Generate array & JSON
-
-// separate metadata fields
-$metadata = array_shift($data);
-$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
-$result['metadata']['sourceURL'] = $urlHome;
-$result['metadata']['status'] = "unconfirmed measurements";
-$result['metadata']['locality'] = $metadata['data'];
-
-// save all data as data
-$result['data'] = $data;
-
-// save latest also as latest
-$temp = array_slice($data, -1, 1);
-
-// if latest is empty, take measurement before that
-if (empty($temp[0]['data']))
-{
-	$temp = array_slice($data, -2, 1);
-}
-$result['latest'] = $temp[0];
-
-
+$result = $airquality->measurement($_GET["p"]);
 
 echo json_encode($result);
-*/
 
 ?>
