@@ -30,6 +30,14 @@ http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=60&ss=841&p=nitroge
 
 */
 
+
+require_once "airquality.php";
+
+$airquality = new airquality($_GET["rs"], $_GET["ss"]);
+$airquality->measurement("nitrogendioxide");
+
+
+/*
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Get vars
 
@@ -69,14 +77,14 @@ $urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=" . $ci
 $time = date("YmdH");
 $url = "http://www.ilmanlaatu.fi/php/table/observationsInTable.php?step=3600&today=1&timesequence=23&time=" . $time . "&station=" . $station . "";
 
-/* STEP 1. let’s create a cookie file */
+// STEP 1. let’s create a cookie file
 $ckfile = tempnam ("/tmp", "CURLCOOKIE");
-/* STEP 2. visit the homepage to set the cookie properly */
+// STEP 2. visit the homepage to set the cookie properly
 $ch = curl_init ($urlHome);
 curl_setopt ($ch, CURLOPT_COOKIEJAR, $ckfile); 
 curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 $output = curl_exec ($ch);
-/* STEP 3. visit cookiepage.php */
+// STEP 3. visit cookiepage.php
 $ch = curl_init ($url);
 curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile); 
 curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
@@ -95,15 +103,6 @@ foreach($table->find('tr') as $row)
 	$data[$rowID]['data'] = $row->find('td', 1)->plaintext;
 	$rowID++;
 }
-
-/*
-// Debug
-echo "URL: <a href=\"$url\">$url</a><p>";
-echo "<pre>" . str_replace("&gt;", "&gt;\n", htmlentities($output)) . "";
-echo "<hr />";
-print_r ($data);
-*/
-
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Generate array & JSON
@@ -131,6 +130,6 @@ $result['latest'] = $temp[0];
 
 
 echo json_encode($result);
-
+*/
 
 ?>

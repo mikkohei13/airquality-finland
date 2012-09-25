@@ -61,42 +61,4 @@ Plans
 
 Indeksi-API - mittausobjekti - ilmanlaatuportaali
 
-Drafting:
-
-Class airquality
-{
-	var $city = FALSE;
-	var $locality = FALSE;
-	
-	public function __construct($city, $locality)
-	{
-		$this->city = $city;
-		$this->locality = $locality;
-	}
-	
-	public function NO2()
-	{
-		
-	}
-	
-	public function 03()
-	{
-		
-	}
-
-	public function qualityIndex()
-	{
-		$NO2 = NO2(); 
-		$O3 = O3();
-		
-		$limit[5]['NO2'] = 100;	
-		
-		if ($NO2 > $limit[5]['NO2'] || $NO2 > $limit[5]['O3'])
-		{
-			$index = 5;
-		}
-		
-	}
-}
-
 
