@@ -1,9 +1,10 @@
 <?php
+require_once "config.php";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Get data
 
-$url = "http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&rs=86&ss=564";
+$url = $basePath . "?p=nitrogendioxide&rs=86&ss=564";
 
 $client = curl_init($url);
 curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
