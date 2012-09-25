@@ -21,8 +21,8 @@ You can set the background of your Android device to change colour based on the 
 - Install [WebLiveWallpaper app](https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper&hl=en) for Android
 - Open it from Wallpapers > Live Wallpapers
 - Settings > New
--- Source YOURDOMAIN/PATH/colour.php
--- Refresh 600
+ - Source YOURDOMAIN/PATH/colour.php
+ - Refresh 600
 - View settings
 - Website snapshot: check
 - Visible area: 0-0-100-100
@@ -38,7 +38,19 @@ Data terms of use
 
 According to the portal, you are free to 
 
--Use the data for non-commercial purposes, research and teaching
--Publish the data for public communication
+- Use the data for non-commercial purposes, research and teaching
+- Publish the data for public communication
 
 ...provided you credit the http://www.ilmanlaatuportaali.fi as the source.
+
+TODO
+----
+
+- City/station selection
+- Measurement selection
+- Index scraping
+- Caching?
+- Additional sources? Are these duplicate to ilmanlaatuportaali.fi:
+ - hel.fi
+ - HSL
+
