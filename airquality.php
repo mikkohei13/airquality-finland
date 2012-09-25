@@ -109,22 +109,34 @@ Class airquality
 		$rowID = 0;
 		foreach($table->find('tr') as $row)
 		{
-			$data[$row->find('td', 0)->plaintext]['data'] = $row->find('td', 1)->plaintext;
+			$data[$row->find('td', 0)->plaintext] = $row->find('td', 1)->plaintext;
 			$rowID++;
 		}
 		
 		// Generate array
-		// separate metadata fields
+		// metadata fields
+		$result['error'] = FALSE;
+		
 		$metadata = array_shift($data);
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
 		$result['metadata']['sourceURL'] = $urlHome;
 		$result['metadata']['status'] = "unconfirmed measurements";
 		$result['metadata']['station'] = $metadata['data'];
+		$result['metadata']['measurement'] = $type;
 
 		// save all data as data
-		$result['data'] = $data;
+		$result['today'] = $data;
 
 		// save latest also as latest
+		$data = array_reverse($data, TRUE);
+		for ($i = 0; ! array_shift(array_values($data)); $i++)
+		{
+			array_shift($data);
+		}
+		$result['latest']['time'] = key($data);
+		$result['latest']['data'] = array_shift($data);
+
+/*		
 		$temp = array_slice($data, -1, 1);
 
 		// if latest is empty, take measurement before that
@@ -133,6 +145,7 @@ Class airquality
 			$temp = array_slice($data, -2, 1);
 		}
 		$result['latest'] = $temp[0];
+*/
 
 		return $result;
 	}
