@@ -56,7 +56,7 @@ Example responses
 -----------------
 
 ## Single measurement
-http://www.luomus.fi/temp/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
+http://YOURSERVER/PATH/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
 
 	{
 	error: false,
@@ -100,8 +100,7 @@ http://www.luomus.fi/temp/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
 	}
 
 ## Air quality index
-
-http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=86&ss=564
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 
 	{
 	latest: {
@@ -116,8 +115,7 @@ http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=86&ss=564
 	}
 
 ## Station number which does not exist
-
-http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=86&ss=5640
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=5640
 
 	{
 	latest: {
@@ -132,8 +130,7 @@ http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=86&ss=5640
 	}
 
 ## Invalid station number
-
-http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=86&ss=XXX
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=XXX
 
 	{
 	error: true,
@@ -141,8 +138,7 @@ http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=86&ss=XXX
 	}
 
 ## Invalid city number
-
-http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=XXX&ss=564
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=XXX&ss=564
 
 	{
 	error: true,
@@ -150,8 +146,7 @@ http://www.luomus.fi/temp/airquality-finland/?p=qualityIndex&rs=XXX&ss=564
 	}
 
 ## Invalid measurement code
-
-http://www.luomus.fi/temp/airquality-finland/?p=XXX&rs=86&ss=564
+http://YOURSERVER/PATH/airquality-finland/?p=XXX&rs=86&ss=564
 
 	{
 	error: true,
