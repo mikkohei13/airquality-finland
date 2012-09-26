@@ -14,11 +14,15 @@ Requires [Simple HTML DOM Parser 1.5](http://simplehtmldom.sourceforge.net); set
 Android wallpaper
 -----------------
 
-You can set the background of your Android device to change colour based on the air quality data.
+You can set the background of your Android device to change colour based on the air quality data. There are few free third-party apps for this:
 
-### Install WebLiveWallpaper app
+### Web LiveWallpaper by Chikashi Yajima
 
-- Install [WebLiveWallpaper app](https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper&hl=en) for Android
+- Install [Web LiveWallpaper](https://play.google.com/store/apps/details?id=com.yaji.weblivewallpaper)
+
+### WebLiveWallpaper by Michael Haar
+
+- Install [WebLiveWallpaper app](https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper) for Android
 - Open it from Wallpapers > Live Wallpapers
 - Settings > New
  - Source YOURDOMAIN/PATH/colour.php
@@ -31,6 +35,7 @@ You can set the background of your Android device to change colour based on the 
 - Select name you entered
 - (wait)
 - Click Set wallpaper
+
 
 
 Data terms of use
@@ -59,9 +64,10 @@ TODO
  - HSL
 
 
-Plans
------
+Misc
+----
 
-Indeksi-API - mittausobjekti - ilmanlaatuportaali
-
+https://github.com/lllllT/MultiPictureLiveWallpaper
+https://github.com/lllllT/MultiPictureLiveWallpaper-PicasaPlugin
+https://play.google.com/store/apps/details?id=org.tamanegi.wallpaper.multipicture&feature=search_result#?t=W251bGwsMSwxLDEsIm9yZy50YW1hbmVnaS53YWxscGFwZXIubXVsdGlwaWN0dXJlIl0.
 
