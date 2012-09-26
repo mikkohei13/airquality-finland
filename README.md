@@ -102,14 +102,29 @@ http://YOURSERVER/PATH/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
 ## Air quality index
 http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 
+*Indices:* 
+- 1 = good / hyvä
+- 2 = satisfactory / tyydyttävä
+- 3 = mediocre / välttävä
+- 4 = bad / huono
+- 5 = very bad / erittäin huono
+
 	{
+	>	metadata: {
+	>	station: "Mannerhe",
+	>	source: "Ilmanlaatuportaali, Ilmatieteen laitos",
+	>	sourceURL: "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=86&ss=564&p=nitrogendioxide&pv=26.09.2012&j=23&et=table&tj=3600&ls=suomi",
+	>	status: "unconfirmed measurements",
+	>	measurement: "qualityIndex"
+	>	},
 	latest: {
 	nitrogendioxide: "13.2",
 	particulateslt2.5um: "3.5",
 	particulateslt10um: "11.3",
 	carbonmonoxide: "164",
 	ozone: "24",
-	data: "hyvä"
+	data: 1,
+	>	time: 23
 	},
 	error: false
 	}
@@ -157,6 +172,9 @@ http://YOURSERVER/PATH/airquality-finland/?p=XXX&rs=86&ss=564
 Todo/Plans
 ----------
 
+- Data types in JSON; string -> float
+- Add marked fields to qualityIndex JSON
+- Unit testing
 - Index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
 - Handle null data (at midnight)
 - Documentation

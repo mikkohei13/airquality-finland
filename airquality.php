@@ -87,22 +87,42 @@ Class airquality
 		$nitrogendioxide = $this->measurement("nitrogendioxide");
 		$nitrogendioxide = $nitrogendioxide['latest']['data'];
 		$result['latest']['nitrogendioxide'] = $nitrogendioxide;
+		if (isset($nitrogendioxide['latest']['time']))
+		{
+			$time = $nitrogendioxide['latest']['time'];
+		}
 		
 		$particulateslt2_5um = $this->measurement("particulateslt2.5um");
 		$particulateslt2_5um = $particulateslt2_5um['latest']['data'];
 		$result['latest']['particulateslt2.5um'] = $particulateslt2_5um;
+		if (isset($particulateslt2_5um['latest']['time']))
+		{
+			$time = $particulateslt2_5um['latest']['time'];
+		}
 		
 		$particulateslt10um = $this->measurement("particulateslt10um");
 		$particulateslt10um = $particulateslt10um['latest']['data'];
 		$result['latest']['particulateslt10um'] = $particulateslt10um;
+		if (isset($particulateslt10um['latest']['time']))
+		{
+			$time = $particulateslt10um['latest']['time'];
+		}
 		
 		$carbonmonoxide = $this->measurement("carbonmonoxide");
 		$carbonmonoxide = $carbonmonoxide['latest']['data'];		
 		$result['latest']['carbonmonoxide'] = $carbonmonoxide;
+		if (isset($carbonmonoxide['latest']['time']))
+		{
+			$time = $carbonmonoxide['latest']['time'];
+		}
 		
 		$ozone = $this->measurement("ozone");
 		$ozone = $ozone['latest']['data'];
 		$result['latest']['ozone'] = $ozone;
+		if (isset($ozone['latest']['time']))
+		{
+			$time = $ozone['latest']['time'];
+		}
 		
 //		$particulateslt10um = 21; // DEBUG
 
@@ -136,6 +156,8 @@ Class airquality
 		{
 			$result['latest']['data'] = "hyvä";
 		}
+		
+		$result['latest']['time'] = $time;
 		
 		$result['error'] = FALSE;
 		return $result;
