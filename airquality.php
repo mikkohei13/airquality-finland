@@ -86,24 +86,29 @@ Class airquality
 	{
 		$nitrogendioxide = $this->measurement("nitrogendioxide");
 		$nitrogendioxide = $nitrogendioxide['latest']['data'];
+		$result['latest']['nitrogendioxide'] = $nitrogendioxide;
 		
 		$particulateslt2_5um = $this->measurement("particulateslt2.5um");
 		$particulateslt2_5um = $particulateslt2_5um['latest']['data'];
+		$result['latest']['particulateslt2.5um'] = $particulateslt2_5um;
 		
 		$particulateslt10um = $this->measurement("particulateslt10um");
 		$particulateslt10um = $particulateslt10um['latest']['data'];
+		$result['latest']['particulateslt10um'] = $particulateslt10um;
 		
 		$carbonmonoxide = $this->measurement("carbonmonoxide");
-		$carbonmonoxide = $carbonmonoxide['latest']['data'];
+		$carbonmonoxide = $carbonmonoxide['latest']['data'];		
+		$result['latest']['carbonmonoxide'] = $carbonmonoxide;
 		
 		$ozone = $this->measurement("ozone");
 		$ozone = $ozone['latest']['data'];
+		$result['latest']['ozone'] = $ozone;
 		
 //		$particulateslt10um = 21; // DEBUG
 
 		
 		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
-		// TODO: tarkista että mittayksiköt oikein
+		// All units are micrograms/m3
 		
 		if (NULL == $nitrogendioxide && NULL == $particulateslt2_5um && NULL == $particulateslt10um && NULL == $carbonmonoxide && NULL == $ozone)
 		{
@@ -111,19 +116,19 @@ Class airquality
 			$result['message'] = "this station doesn't yet have an air quality index for today<br />";
 			return $result;
 		}
-		elseif ($nitrogendioxide > 200 || $particulateslt2_5um > 75 || $particulateslt10um > 200 || $carbonmonoxide > 30 || $ozone > 180)
+		elseif ($nitrogendioxide > 200 || $particulateslt2_5um > 75 || $particulateslt10um > 200 || $carbonmonoxide > 30000 || $ozone > 180)
 		{
 			$result['latest']['data'] = "erittäin huono";
 		}
-		elseif ($nitrogendioxide > 150 || $particulateslt2_5um > 50 || $particulateslt10um > 100 || $carbonmonoxide > 20 || $ozone > 140)
+		elseif ($nitrogendioxide > 150 || $particulateslt2_5um > 50 || $particulateslt10um > 100 || $carbonmonoxide > 20000 || $ozone > 140)
 		{
 			$result['latest']['data'] = "huono";
 		}
-		elseif ($nitrogendioxide > 70 || $particulateslt2_5um > 25 || $particulateslt10um > 50 || $carbonmonoxide > 8 || $ozone > 100)
+		elseif ($nitrogendioxide > 70 || $particulateslt2_5um > 25 || $particulateslt10um > 50 || $carbonmonoxide > 8000 || $ozone > 100)
 		{
 			$result['latest']['data'] = "välttävä";
 		}
-		elseif ($nitrogendioxide > 40 || $particulateslt2_5um > 10 || $particulateslt10um > 20 || $carbonmonoxide > 4 || $ozone > 60)
+		elseif ($nitrogendioxide > 40 || $particulateslt2_5um > 10 || $particulateslt10um > 20 || $carbonmonoxide > 4000 || $ozone > 60)
 		{
 			$result['latest']['data'] = "tyydyttävä";
 		}
@@ -145,6 +150,7 @@ Class airquality
 		// Form page URL
 		$pv = date("d.m.Y");
 		$urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=" . $this->city . "&ss=" . $this->station . "&p=" . $type . "&pv=" . $pv . "&j=23&et=table&tj=3600&ls=suomi";
+//		echo $urlHome; exit(); // debug
 
 		// Data page URL
 		$time = date("YmdH");

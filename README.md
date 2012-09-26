@@ -4,6 +4,9 @@ API fo Finnish air quality data
 
 This API scrapes air quality data from http://www.ilmanlaatuportaali.fi -portal, and presents it as a RESTful JSON API.
 
+Examples:
+ http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
+
 
 Technical notes
 ---------------

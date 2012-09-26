@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
+
 require_once "config.php";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -16,8 +18,10 @@ $data = json_decode($response, TRUE);
 $latest = $data['latest']['data'];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Calculate color
+// Calculate colour
 
+/*
+// Old colours
 if ($latest == NULL)
 	$bgcolor = "#000";
 elseif ($latest < 10)
@@ -34,6 +38,22 @@ elseif ($latest < 60)
 	$bgcolor = "#FF4600";
 else
 	$bgcolor = "#FF0000";
+*/
+
+if ($latest == NULL)
+	$bgcolor = "#000";
+elseif ($latest == "hyvä")
+	$bgcolor = "#090";
+elseif ($latest == "tyydyttävä")
+	$bgcolor = "#990";
+elseif ($latest == "välttävä")
+	$bgcolor = "#f90";
+elseif ($latest == "huono")
+	$bgcolor = "#F00";
+elseif ($latest == "erittäin huono")
+	$bgcolor = "#d09";
+else
+	$bgcolor = "#fff";
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // HTML
@@ -55,6 +75,6 @@ body {
 </style>
 </head>
 <body>
-<p id="latest"><?php echo str_replace(".", ",", $latest) . " @ " . $data['latest']['time']; ?></p>
+<p id="latest"><?php echo $latest; ?></p>
 </body>
 </html>
