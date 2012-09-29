@@ -15,7 +15,7 @@ curl_close($client);
 
 $data = json_decode($response, TRUE);
 
-print_r ($data); exit("Exited debug"); // debug
+//print_r ($data); exit("Exited debug"); // debug
 
 $latest = $data['latest']['data'];
 
@@ -44,15 +44,15 @@ else
 
 if ($latest == NULL)
 	$bgcolor = "#000";
-elseif ($latest == "hyvä")
+elseif ($latest == 1)
 	$bgcolor = "#090";
-elseif ($latest == "tyydyttävä")
+elseif ($latest == 2)
 	$bgcolor = "#990";
-elseif ($latest == "välttävä")
+elseif ($latest == 3)
 	$bgcolor = "#f90";
-elseif ($latest == "huono")
+elseif ($latest == 4)
 	$bgcolor = "#F00";
-elseif ($latest == "erittäin huono")
+elseif ($latest == 5)
 	$bgcolor = "#d09";
 else
 	$bgcolor = "#fff";
@@ -77,6 +77,6 @@ body {
 </style>
 </head>
 <body>
-<p id="latest"><?php echo $latest; ?></p>
+<p id="latest"><?php echo $data['latest']['FI']; ?></p>
 </body>
 </html>
