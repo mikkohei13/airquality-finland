@@ -22,6 +22,9 @@ You can set the background of your Android device to change colour based on the 
 ### Web LiveWallpaper by Chikashi Yajima
 
 - Install [Web LiveWallpaper](https://play.google.com/store/apps/details?id=com.yaji.weblivewallpaper)
+- Open browser, go to YOURDOMAIN/PATH/colour.php
+- Menu > Share > Web LiveWallpaper > click Apply
+-- If you can't see the apply button, turn the phone horizontal; the button is behing the ad.
 
 ### WebLiveWallpaper by Michael Haar
 
