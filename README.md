@@ -124,7 +124,7 @@ http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 	carbonmonoxide: "164",
 	ozone: "24",
 	data: 1,
-	>	time: 23
+	time: 23
 	},
 	error: false
 	}

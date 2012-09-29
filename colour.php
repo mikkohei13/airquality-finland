@@ -15,6 +15,8 @@ curl_close($client);
 
 $data = json_decode($response, TRUE);
 
+print_r ($data); exit("Exited debug"); // debug
+
 $latest = $data['latest']['data'];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

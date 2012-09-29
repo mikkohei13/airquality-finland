@@ -85,40 +85,35 @@ Class airquality
 	public function qualityIndex()
 	{
 		$nitrogendioxide = $this->measurement("nitrogendioxide");
-		$nitrogendioxide = $nitrogendioxide['latest']['data'];
-		$result['latest']['nitrogendioxide'] = $nitrogendioxide;
+		$result['latest']['nitrogendioxide'] = $nitrogendioxide['latest']['data'];
 		if (isset($nitrogendioxide['latest']['time']))
 		{
 			$time = $nitrogendioxide['latest']['time'];
 		}
 		
 		$particulateslt2_5um = $this->measurement("particulateslt2.5um");
-		$particulateslt2_5um = $particulateslt2_5um['latest']['data'];
-		$result['latest']['particulateslt2.5um'] = $particulateslt2_5um;
+		$result['latest']['particulateslt2.5um'] = $particulateslt2_5um['latest']['data'];
 		if (isset($particulateslt2_5um['latest']['time']))
 		{
 			$time = $particulateslt2_5um['latest']['time'];
 		}
 		
 		$particulateslt10um = $this->measurement("particulateslt10um");
-		$particulateslt10um = $particulateslt10um['latest']['data'];
-		$result['latest']['particulateslt10um'] = $particulateslt10um;
+		$result['latest']['particulateslt10um'] = $particulateslt10um['latest']['data'];
 		if (isset($particulateslt10um['latest']['time']))
 		{
 			$time = $particulateslt10um['latest']['time'];
 		}
 		
 		$carbonmonoxide = $this->measurement("carbonmonoxide");
-		$carbonmonoxide = $carbonmonoxide['latest']['data'];		
-		$result['latest']['carbonmonoxide'] = $carbonmonoxide;
+		$result['latest']['carbonmonoxide'] = $carbonmonoxide['latest']['data'];		
 		if (isset($carbonmonoxide['latest']['time']))
 		{
 			$time = $carbonmonoxide['latest']['time'];
 		}
 		
 		$ozone = $this->measurement("ozone");
-		$ozone = $ozone['latest']['data'];
-		$result['latest']['ozone'] = $ozone;
+		$result['latest']['ozone'] = $ozone['latest']['data'];
 		if (isset($ozone['latest']['time']))
 		{
 			$time = $ozone['latest']['time'];
@@ -130,31 +125,36 @@ Class airquality
 		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
 		// All units are micrograms/m3
 		
-		if (NULL == $nitrogendioxide && NULL == $particulateslt2_5um && NULL == $particulateslt10um && NULL == $carbonmonoxide && NULL == $ozone)
+		if (NULL == $nitrogendioxide['latest']['data'] && NULL == $particulateslt2_5um['latest']['data'] && NULL == $particulateslt10um['latest']['data'] && NULL == $carbonmonoxide['latest']['data'] && NULL == $ozone['latest']['data'])
 		{
 			$result['error'] = TRUE;
 			$result['message'] = "this station doesn't yet have an air quality index for today<br />";
 			return $result;
 		}
-		elseif ($nitrogendioxide > 200 || $particulateslt2_5um > 75 || $particulateslt10um > 200 || $carbonmonoxide > 30000 || $ozone > 180)
+		elseif ($nitrogendioxide['latest']['data'] > 200 || $particulateslt2_5um['latest']['data'] > 75 || $particulateslt10um['latest']['data'] > 200 || $carbonmonoxide['latest']['data'] > 30000 || $ozone['latest']['data'] > 180)
 		{
-			$result['latest']['data'] = "erittäin huono";
+			$result['latest']['data'] = "5";
+			$result['latest']['FI'] = "erittäin huono";
 		}
-		elseif ($nitrogendioxide > 150 || $particulateslt2_5um > 50 || $particulateslt10um > 100 || $carbonmonoxide > 20000 || $ozone > 140)
+		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140)
 		{
-			$result['latest']['data'] = "huono";
+			$result['latest']['data'] = "4";
+			$result['latest']['FI'] = "huono";
 		}
-		elseif ($nitrogendioxide > 70 || $particulateslt2_5um > 25 || $particulateslt10um > 50 || $carbonmonoxide > 8000 || $ozone > 100)
+		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100)
 		{
-			$result['latest']['data'] = "välttävä";
+			$result['latest']['data'] = "3";
+			$result['latest']['FI'] = "välttävä";
 		}
-		elseif ($nitrogendioxide > 40 || $particulateslt2_5um > 10 || $particulateslt10um > 20 || $carbonmonoxide > 4000 || $ozone > 60)
+		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60)
 		{
-			$result['latest']['data'] = "tyydyttävä";
+			$result['latest']['data'] = "2";
+			$result['latest']['FI'] = "tyydyttävä";
 		}
 		else 
 		{
-			$result['latest']['data'] = "hyvä";
+			$result['latest']['data'] = "1";
+			$result['latest']['FI'] = "hyvä";
 		}
 		
 		$result['latest']['time'] = $time;
