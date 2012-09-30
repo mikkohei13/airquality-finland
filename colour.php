@@ -66,17 +66,28 @@ else
 body {
 	background-color: <?php echo $bgcolor; ?>;
 }
-#latest {
+p {
 	color: #000;
-	font-size: 300%;
-	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;
 	opacity:0.2;
 	filter:alpha(opacity=20); /* For IE8 and earlier */
+	margin: 0;
+}
+#latest {
+	font-size: 300%;
+	font-weight: bold;
+	margin-top: 0.5em;
+}
+#detail {
+		
 }
 </style>
 </head>
 <body>
 <p id="latest"><?php echo $data['latest']['FI']; ?></p>
+<p id="detail"><?php
+echo "klo " . $data['latest']['time'] . "<br />\n"
+	. "NO<sub>2</sub> " . $data['latest']['nitrogendioxide'];
+?></p>
 </body>
 </html>
