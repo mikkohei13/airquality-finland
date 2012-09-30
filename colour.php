@@ -87,7 +87,12 @@ p {
 <p id="latest"><?php echo $data['latest']['FI']; ?></p>
 <p id="detail"><?php
 echo "klo " . $data['latest']['time'] . "<br />\n"
-	. "NO<sub>2</sub> " . $data['latest']['nitrogendioxide'];
+	. "typpidioksidi " . $data['latest']['nitrogendioxide'] . "<br />\n"
+	. "pienhiukkaset " . $data['latest']['particulateslt2.5um'] . "<br />\n"
+	. "hengitettävät hiukkaset " . $data['latest']['particulateslt10um'] . "<br />\n"
+	. "hiilimonoksidi " . $data['latest']['carbonmonoxide'] . "<br />\n"
+	. "otsoni " . $data['latest']['ozone']
+;
 ?></p>
 </body>
 </html>
