@@ -44,11 +44,13 @@ Class airquality
 			$errorArray['message'] = $this->message;
 			return $errorArray;
 		}
+		// If air quality index
 		elseif ($type == "qualityIndex")
 		{
 			$dataArray = $this->qualityIndex($type);
 			return $dataArray;
 		}
+		// If raw measurement
 		elseif ($type == "nitrogendioxide" || $type == "particulateslt10um" || $type == "particulateslt2.5um" || $type == "carbonmonoxide" || $type == "ozone")
 		{
 			$dataArray = $this->scrapeMeasurement($type);
@@ -56,7 +58,7 @@ Class airquality
 			// If this data is missing
 			if (FALSE === $dataArray)
 			{
-				$this->message .= "this station doesn't have this measurement for today<br />";
+				$this->message .= "this station doesn't have this measurement<br />";
 				$errorArray['error'] = TRUE;
 				$errorArray['message'] = $this->message;
 				return $errorArray;
@@ -77,13 +79,11 @@ Class airquality
 	
 	// ------------------------------------------------------------------------
 	// Calculates air quality index
-	// http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
 	
-	// DRAFT
-	
-
 	public function qualityIndex()
 	{
+		// Goes through all measurements, tries to pick the time from each, since we don't know which measurement is available
+		
 		$nitrogendioxide = $this->measurement("nitrogendioxide");
 		$result['latest']['nitrogendioxide'] = $nitrogendioxide['latest']['data'];
 		if (isset($nitrogendioxide['latest']['time']))
@@ -119,9 +119,6 @@ Class airquality
 			$time = $ozone['latest']['time'];
 		}
 		
-//		$particulateslt10um = 21; // DEBUG
-
-		
 		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
 		// All units are micrograms/m3
 		
@@ -135,31 +132,36 @@ Class airquality
 		{
 			$result['latest']['data'] = "5";
 			$result['latest']['FI'] = "erittäin huono";
+			$result['latest']['EN'] = "very bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140)
 		{
 			$result['latest']['data'] = "4";
 			$result['latest']['FI'] = "huono";
+			$result['latest']['EN'] = "bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100)
 		{
 			$result['latest']['data'] = "3";
 			$result['latest']['FI'] = "välttävä";
+			$result['latest']['EN'] = "mediocre";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60)
 		{
 			$result['latest']['data'] = "2";
 			$result['latest']['FI'] = "tyydyttävä";
+			$result['latest']['EN'] = "satisfactory";
 		}
 		else 
 		{
 			$result['latest']['data'] = "1";
 			$result['latest']['FI'] = "hyvä";
+			$result['latest']['EN'] = "good";
 		}
 		
 		$result['latest']['time'] = $time;
-		
 		$result['error'] = FALSE;
+		
 		return $result;
 	}
 
