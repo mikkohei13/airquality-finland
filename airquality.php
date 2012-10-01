@@ -63,8 +63,6 @@ Class airquality
 				$errorArray['message'] = $this->message;
 				return $errorArray;
 			}
-			
-//			echo "<pre>"; print_r ($dataArray); exit(); // Debug
 			return $dataArray;
 		}
 		// If error with measurement name

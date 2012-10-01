@@ -177,14 +177,19 @@ Todo/Plans
 
 - Data types in JSON; string -> float
 - Add marked fields to qualityIndex JSON
+- Fix charset in this file
+- Place name to colour.php output
 - Unit testing
 - Index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
 - Handle null data (at midnight)
 - Documentation
+- Fetch form page only once, is possible
 - City validation
 - Station validation: can be tricky because portal returns summary data if number is invalid, and scraper freezes when reading the summary table
 - Scrape error handling: portal is offline or changes
-- Caching?
+- Caching
+-- Based on get parameters, date & hour. If hourly data is available -> write cache, if not, don't. If cache is available, use that, if not, fetch new.
+-- Find out when data is updated
 - Additional sources? Are these duplicates to ilmanlaatuportaali.fi?
  - hel.fi
  - HSL
