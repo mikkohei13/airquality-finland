@@ -158,9 +158,8 @@ Todo/Plans
 ----------
 
 - Data types in JSON; string -> float
-- Add marked fields to qualityIndex JSON
 - Unit testing
-- Index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
+- Compare index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
 - Handle null data (at midnight)
 - Documentation
 - Fetch form page only once, is possible
