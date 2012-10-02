@@ -16,7 +16,7 @@ curl_close($client);
 
 $data = json_decode($response, TRUE);
 
-//print_r ($data); exit("Exited debug"); // debug
+// echo "<pre>"; print_r ($data); exit("Exited debug"); // debug
 
 $latest = $data['latest']['data'];
 
@@ -24,7 +24,7 @@ $latest = $data['latest']['data'];
 // Calculate colour
 
 /*
-// Old colours
+// Old, nicer colours
 if ($latest == NULL)
 	$bgcolor = "#000";
 elseif ($latest < 10)
@@ -87,12 +87,12 @@ p {
 <body>
 <p id="latest"><?php echo $data['latest']['FI']; ?></p>
 <p id="detail"><?php
-echo "klo " . $data['latest']['time'] . "<br />\n"
-	. "typpidioksidi " . $data['latest']['nitrogendioxide'] . "<br />\n"
-	. "pienhiukkaset " . $data['latest']['particulateslt2.5um'] . "<br />\n"
-	. "hengitettävät hiukkaset " . $data['latest']['particulateslt10um'] . "<br />\n"
-	. "hiilimonoksidi " . $data['latest']['carbonmonoxide'] . "<br />\n"
-	. "otsoni " . $data['latest']['ozone']
+echo "klo " . $data['latest']['time'] . " @ " . $data['metadata']['station'] . "<br />\n"
+	. "typpidioksidi " . $data['latest']['parts']['nitrogendioxide'] . "<br />\n"
+	. "pienhiukkaset " . $data['latest']['parts']['particulateslt2.5um'] . "<br />\n"
+	. "hengitettävät hiukkaset " . $data['latest']['parts']['particulateslt10um'] . "<br />\n"
+	. "hiilimonoksidi " . $data['latest']['parts']['carbonmonoxide'] . "<br />\n"
+	. "otsoni " . $data['latest']['parts']['ozone']
 ;
 ?></p>
 </body>

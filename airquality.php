@@ -80,41 +80,46 @@ Class airquality
 	
 	public function qualityIndex()
 	{
-		// Goes through all measurements, tries to pick the time from each, since we don't know which measurement is available
+		// Goes through all measurements, tries to pick the time & metadata from each, since we don't know which measurement is available
 		
 		$nitrogendioxide = $this->measurement("nitrogendioxide");
-		$result['latest']['nitrogendioxide'] = $nitrogendioxide['latest']['data'];
+		$result['latest']['parts']['nitrogendioxide'] = $nitrogendioxide['latest']['data'];
 		if (isset($nitrogendioxide['latest']['time']))
 		{
 			$time = $nitrogendioxide['latest']['time'];
+			$metadata = $nitrogendioxide['metadata'];
 		}
 		
 		$particulateslt2_5um = $this->measurement("particulateslt2.5um");
-		$result['latest']['particulateslt2.5um'] = $particulateslt2_5um['latest']['data'];
+		$result['latest']['parts']['particulateslt2.5um'] = $particulateslt2_5um['latest']['data'];
 		if (isset($particulateslt2_5um['latest']['time']))
 		{
 			$time = $particulateslt2_5um['latest']['time'];
+			$metadata = $particulateslt2_5um['metadata'];
 		}
 		
 		$particulateslt10um = $this->measurement("particulateslt10um");
-		$result['latest']['particulateslt10um'] = $particulateslt10um['latest']['data'];
+		$result['latest']['parts']['particulateslt10um'] = $particulateslt10um['latest']['data'];
 		if (isset($particulateslt10um['latest']['time']))
 		{
 			$time = $particulateslt10um['latest']['time'];
+			$metadata = $particulateslt10um['metadata'];
 		}
 		
 		$carbonmonoxide = $this->measurement("carbonmonoxide");
-		$result['latest']['carbonmonoxide'] = $carbonmonoxide['latest']['data'];		
+		$result['latest']['parts']['carbonmonoxide'] = $carbonmonoxide['latest']['data'];		
 		if (isset($carbonmonoxide['latest']['time']))
 		{
 			$time = $carbonmonoxide['latest']['time'];
+			$metadata = $carbonmonoxide['metadata'];
 		}
 		
 		$ozone = $this->measurement("ozone");
-		$result['latest']['ozone'] = $ozone['latest']['data'];
+		$result['latest']['parts']['ozone'] = $ozone['latest']['data'];
 		if (isset($ozone['latest']['time']))
 		{
 			$time = $ozone['latest']['time'];
+			$metadata = $ozone['metadata'];
 		}
 		
 		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
@@ -158,6 +163,8 @@ Class airquality
 		}
 		
 		$result['latest']['time'] = $time;
+		$result['metadata'] = $metadata;
+		$result['metadata']['measurement'] = "qualityIndex";
 		$result['error'] = FALSE;
 		
 		return $result;

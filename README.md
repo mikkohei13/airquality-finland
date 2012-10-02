@@ -106,31 +106,13 @@ http://YOURSERVER/PATH/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
 http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 
 *Indices:* 
-- 1 = good / hyvä
-- 2 = satisfactory / tyydyttävä
-- 3 = mediocre / välttävä
+- 1 = good / hyvÃ¤
+- 2 = satisfactory / tyydyttÃ¤vÃ¤
+- 3 = mediocre / vÃ¤lttÃ¤vÃ¤
 - 4 = bad / huono
-- 5 = very bad / erittäin huono
+- 5 = very bad / erittÃ¤in huono
+		{"latest":{"parts":{"nitrogendioxide":"29.6","particulateslt2.5um":"13.6","particulateslt10um":"26.0","carbonmonoxide":"258","ozone":"27"},"data":"2","FI":"tyydytt\u00e4v\u00e4","EN":"satisfactory","time":12},"metadata":{"station":"Mannerhe","source":"Ilmanlaatuportaali, Ilmatieteen laitos","sourceURL":"http:\/\/www.ilmanlaatu.fi\/ilmanyt\/nyt\/ilmanyt.php?as=Suomi&rs=86&ss=564&p=ozone&pv=02.10.2012&j=23&et=table&tj=3600&ls=suomi","status":"unconfirmed measurements","measurement":"qualityIndex"},"error":false}
 
-	{
-	>	metadata: {
-	>	station: "Mannerhe",
-	>	source: "Ilmanlaatuportaali, Ilmatieteen laitos",
-	>	sourceURL: "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=86&ss=564&p=nitrogendioxide&pv=26.09.2012&j=23&et=table&tj=3600&ls=suomi",
-	>	status: "unconfirmed measurements",
-	>	measurement: "qualityIndex"
-	>	},
-	latest: {
-	nitrogendioxide: "13.2",
-	particulateslt2.5um: "3.5",
-	particulateslt10um: "11.3",
-	carbonmonoxide: "164",
-	ozone: "24",
-	data: 1,
-	time: 23
-	},
-	error: false
-	}
 
 ## Station number which does not exist
 http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=5640
@@ -177,8 +159,6 @@ Todo/Plans
 
 - Data types in JSON; string -> float
 - Add marked fields to qualityIndex JSON
-- Fix charset in this file
-- Place name to colour.php output
 - Unit testing
 - Index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
 - Handle null data (at midnight)
