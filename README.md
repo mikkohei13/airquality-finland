@@ -158,6 +158,8 @@ Todo/Plans
 ----------
 
 - Data types in JSON; string -> float
+- Fetch page into its own method
+- Now input validation & error messaging is done in the sraping class; is this ok? Yes, if the point of this to be an API (object is not used directly in applications). 
 - Unit testing
 - Compare index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
 - Handle null data (at midnight)
