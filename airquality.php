@@ -82,7 +82,7 @@ Class airquality
 	
 	public function qualityIndex()
 	{
-		// Goes through all measurements, tries to pick the time & metadata from each, since we don't know which measurement is available
+		// Goes through all measurements, tries to pick the time & metadata from each, since we don't know which measurement is available. This will lead to the sourceURL will be from the last measurement. 
 		
 		$nitrogendioxide = $this->measurement("nitrogendioxide");
 		$result['latest']['parts']['nitrogendioxide'] = $nitrogendioxide['latest']['data'];
@@ -182,7 +182,7 @@ Class airquality
 		$output = $this->fetchPageAsUTF8($type);
 		
 		// Scrape
-		$html = str_get_html($output); 
+		$html = str_get_html($output['html']); 
 		$table = $html->find('table', 0);
 
 		foreach($table->find('tr') as $row)
@@ -209,21 +209,18 @@ Class airquality
 		}
 
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
-		$result['metadata']['sourceURL'] = $urlHome;
+		$result['metadata']['sourceURL'] = $output['url'];
 		$result['metadata']['status'] = "unconfirmed measurements";
 		$result['metadata']['measurement'] = $type;
 
 		// Save all data as todays data
 		$result['today'] = $data;
 
-		// Convert scraped text to numbers
-		$result = $this->convertScrapedToFloat($result);
-		
 		// save latest also as latest
 		$temp = array_slice($data, -1, 1, TRUE);
 
 		// if latest is empty, take measurement before that
-		if (is_null($temp[0]['data']))
+		if (empty($temp[0]['data']))
 		{
 			$temp = array_slice($data, -2, 1, TRUE);
 		}
@@ -231,6 +228,9 @@ Class airquality
 		// Time and data
 		$result['latest']['data'] = $temp[key($temp)];
 		$result['latest']['time'] = key($temp);
+
+		// Convert scraped text to numbers
+		$result = $this->convertScrapedToFloat($result);
 
 		return $result;
 	}
@@ -264,7 +264,10 @@ Class airquality
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 		$output = curl_exec ($ch);
 
-		return utf8_encode($output);
+		$result['html'] = utf8_encode($output);
+		$result['url'] = $urlHome;
+		
+		return $result;
 	}
 
 
@@ -273,6 +276,8 @@ Class airquality
 	
 	public function convertScrapedToFloat($array)
 	{
+//		echo "<pre>"; print_r ($array); exit();
+		
 		$array['latest']['data'] = (float) $array['latest']['data'];
 		
 		foreach ($array['today'] as $key => $value)

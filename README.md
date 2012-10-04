@@ -105,13 +105,36 @@ http://YOURSERVER/PATH/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
 ## Air quality index
 http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 
-*Indices:* 
+*Unit of the data is an indice:* 
 - 1 = good / hyvä
 - 2 = satisfactory / tyydyttävä
 - 3 = mediocre / välttävä
 - 4 = bad / huono
 - 5 = very bad / erittäin huono
-		{"latest":{"parts":{"nitrogendioxide":"29.6","particulateslt2.5um":"13.6","particulateslt10um":"26.0","carbonmonoxide":"258","ozone":"27"},"data":"2","FI":"tyydytt\u00e4v\u00e4","EN":"satisfactory","time":12},"metadata":{"station":"Mannerhe","source":"Ilmanlaatuportaali, Ilmatieteen laitos","sourceURL":"http:\/\/www.ilmanlaatu.fi\/ilmanyt\/nyt\/ilmanyt.php?as=Suomi&rs=86&ss=564&p=ozone&pv=02.10.2012&j=23&et=table&tj=3600&ls=suomi","status":"unconfirmed measurements","measurement":"qualityIndex"},"error":false}
+		
+	{
+	latest: {
+	parts: {
+	nitrogendioxide: 25,
+	particulateslt2.5um: 4.7,
+	particulateslt10um: 17.7,
+	carbonmonoxide: 319,
+	ozone: 33
+	},
+	data: 1,
+	FI: "hyvä",
+	EN: "good",
+	time: 8
+	},
+	metadata: {
+	station: "Mannerhe",
+	source: "Ilmanlaatuportaali, Ilmatieteen laitos",
+	sourceURL: "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=86&ss=564&p=ozone&pv=04.10.2012&j=23&et=table&tj=3600&ls=suomi",
+	status: "unconfirmed measurements",
+	measurement: "qualityIndex"
+	},
+	error: false
+	}
 
 
 ## Station number which does not exist
@@ -157,7 +180,6 @@ http://YOURSERVER/PATH/airquality-finland/?p=XXX&rs=86&ss=564
 Todo/Plans
 ----------
 
-- Fetch page into its own method
 - Documentation & blog post
 - Fetch form page only once, is possible
 - Unit testing
