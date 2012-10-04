@@ -135,31 +135,31 @@ Class airquality
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 200 || $particulateslt2_5um['latest']['data'] > 75 || $particulateslt10um['latest']['data'] > 200 || $carbonmonoxide['latest']['data'] > 30000 || $ozone['latest']['data'] > 180)
 		{
-			$result['latest']['data'] = 5;
+			$result['latest']['index'] = 5;
 			$result['latest']['FI'] = "erittäin huono";
 			$result['latest']['EN'] = "very bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140)
 		{
-			$result['latest']['data'] = 4;
+			$result['latest']['index'] = 4;
 			$result['latest']['FI'] = "huono";
 			$result['latest']['EN'] = "bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100)
 		{
-			$result['latest']['data'] = 3;
+			$result['latest']['index'] = 3;
 			$result['latest']['FI'] = "välttävä";
 			$result['latest']['EN'] = "mediocre";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60)
 		{
-			$result['latest']['data'] = 2;
+			$result['latest']['index'] = 2;
 			$result['latest']['FI'] = "tyydyttävä";
 			$result['latest']['EN'] = "satisfactory";
 		}
 		else 
 		{
-			$result['latest']['data'] = 1;
+			$result['latest']['index'] = 1;
 			$result['latest']['FI'] = "hyvä";
 			$result['latest']['EN'] = "good";
 		}
@@ -219,10 +219,15 @@ Class airquality
 		// save latest also as latest
 		$temp = array_slice($data, -1, 1, TRUE);
 
-		// if latest is empty, take measurement before that
+		// TODO: make this to handle n empty values
+		// if latest or next to latest is empty, take measurement before that
 		if (empty($temp[0]['data']))
 		{
 			$temp = array_slice($data, -2, 1, TRUE);
+		}
+		if (empty($temp[0]['data']))
+		{
+			$temp = array_slice($data, -3, 1, TRUE);
 		}
 
 		// Time and data
@@ -231,6 +236,8 @@ Class airquality
 
 		// Convert scraped text to numbers
 		$result = $this->convertScrapedToFloat($result);
+		
+//		$result = $this->addIndex($result);
 
 		return $result;
 	}
@@ -271,6 +278,88 @@ Class airquality
 	}
 
 
+	// ------------------------------------------------------------------------
+	// 
+	
+	public function addIndex($array)
+	{
+		// limts as micrograms/m3
+	
+		$indexMaxLimits['nitrogendioxide'][1] = 40;
+		$indexMaxLimits['nitrogendioxide'][2] = 70;
+		$indexMaxLimits['nitrogendioxide'][3] = 150;
+		$indexMaxLimits['nitrogendioxide'][4] = 200;
+	
+		$indexMaxLimits['particulateslt2_5um'][1] = 10;
+		$indexMaxLimits['particulateslt2_5um'][2] = 25;
+		$indexMaxLimits['particulateslt2_5um'][3] = 50;
+		$indexMaxLimits['particulateslt2_5um'][4] = 75;
+	
+		$indexMaxLimits['particulateslt10um'][1] = 20;
+		$indexMaxLimits['particulateslt10um'][2] = 50;
+		$indexMaxLimits['particulateslt10um'][3] = 100;
+		$indexMaxLimits['particulateslt10um'][4] = 200;
+	
+		$indexMaxLimits['carbonmonoxide'][1] = 4000;
+		$indexMaxLimits['carbonmonoxide'][2] = 8000;
+		$indexMaxLimits['carbonmonoxide'][3] = 20000;
+		$indexMaxLimits['carbonmonoxide'][4] = 30000;
+	
+		$indexMaxLimits['ozone'][1] = 60;
+		$indexMaxLimits['ozone'][2] = 100;
+		$indexMaxLimits['ozone'][3] = 140;
+		$indexMaxLimits['ozone'][4] = 180;
+		
+		
+		$data = $array['latest']['data'];
+		$measurement = $array['metadata']['measurement'];
+		
+		if ("qualityIndex" == $measurement)
+		{
+			// TODO: Move index calculations here
+		}
+		else
+		{
+			if ($data > $indexMaxLimits[$measurement][4])
+			{
+				$index = 5;
+				$FI = "erittäin huono";
+				$EN = "very bad";
+			}
+			elseif ($data > $indexMaxLimits[$measurement][3])
+			{
+				$index = 4;
+				$FI = "huono";
+				$EN = "bad";
+			}
+			elseif ($data > $indexMaxLimits[$measurement][2])
+			{
+				$index = 3;
+				$FI = "tyydyttävä";
+				$EN = "mediocre";
+			}
+			elseif ($data > $indexMaxLimits[$measurement][1])
+			{
+				$index = 2;
+				$FI = "erittäin huono";
+				$EN = "very bad";
+			}
+			else
+			{
+				$index = 1;
+				$FI = "hyvä";
+				$EN = "good";
+			}
+		}
+	
+		$array['latest']['index'] = $index;
+		$array['latest']['FI'] = $FI;
+		$array['latest']['EN'] = $EN;
+	
+		return $array;
+	}
+	
+	
 	// ------------------------------------------------------------------------
 	// 
 	
