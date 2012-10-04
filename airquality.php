@@ -178,32 +178,9 @@ Class airquality
 	
 	public function scrapeMeasurement($type)
 	{
-		// Form page URL
-		$pv = date("d.m.Y");
-		$urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=" . $this->city . "&ss=" . $this->station . "&p=" . $type . "&pv=" . $pv . "&j=23&et=table&tj=3600&ls=suomi";
-//		echo $urlHome; exit(); // debug
-
-		// Data page URL
-		$time = date("YmdH");
-		$url = "http://www.ilmanlaatu.fi/php/table/observationsInTable.php?step=3600&today=1&timesequence=23&time=" . $time . "&station=" . $this->station . "";
-
-		// Create a cookie file
-		$ckfile = tempnam ("/tmp", "CURLCOOKIE");
+		// Get page
+		$output = $this->fetchPageAsUTF8($type);
 		
-		// Visit form page, set a cookie
-		$ch = curl_init ($urlHome);
-		curl_setopt ($ch, CURLOPT_COOKIEJAR, $ckfile); 
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec ($ch);
-		
-		// Scrape data page with the cookie
-		$ch = curl_init ($url);
-		curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile); 
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec ($ch);
-
-		$output = utf8_encode($output);
-
 		// Scrape
 		$html = str_get_html($output); 
 		$table = $html->find('table', 0);
@@ -257,6 +234,39 @@ Class airquality
 
 		return $result;
 	}
+
+	// ------------------------------------------------------------------------
+	// Fetches a data page from Ilmanlaatuportaali and returns it as an UTF-8 string
+	
+	public function fetchPageAsUTF8($type)
+	{
+		// Form page URL
+		$pv = date("d.m.Y");
+		$urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=" . $this->city . "&ss=" . $this->station . "&p=" . $type . "&pv=" . $pv . "&j=23&et=table&tj=3600&ls=suomi";
+//		echo $urlHome; exit(); // debug
+
+		// Data page URL
+		$time = date("YmdH");
+		$url = "http://www.ilmanlaatu.fi/php/table/observationsInTable.php?step=3600&today=1&timesequence=23&time=" . $time . "&station=" . $this->station . "";
+
+		// Create a cookie file
+		$ckfile = tempnam ("/tmp", "CURLCOOKIE");
+		
+		// Visit form page, set a cookie
+		$ch = curl_init ($urlHome);
+		curl_setopt ($ch, CURLOPT_COOKIEJAR, $ckfile); 
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+		$output = curl_exec ($ch);
+		
+		// Scrape data page with the cookie
+		$ch = curl_init ($url);
+		curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile); 
+		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
+		$output = curl_exec ($ch);
+
+		return utf8_encode($output);
+	}
+
 
 	// ------------------------------------------------------------------------
 	// 
