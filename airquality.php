@@ -136,32 +136,32 @@ Class airquality
 		elseif ($nitrogendioxide['latest']['data'] > 200 || $particulateslt2_5um['latest']['data'] > 75 || $particulateslt10um['latest']['data'] > 200 || $carbonmonoxide['latest']['data'] > 30000 || $ozone['latest']['data'] > 180)
 		{
 			$result['latest']['data'] = 5;
-//			$result['latest']['FI'] = "erittäin huono";
-//			$result['latest']['EN'] = "very bad";
+			$result['latest']['FI'] = "erittäin huono";
+			$result['latest']['EN'] = "very bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140)
 		{
 			$result['latest']['data'] = 4;
-//			$result['latest']['FI'] = "huono";
-//			$result['latest']['EN'] = "bad";
+			$result['latest']['FI'] = "huono";
+			$result['latest']['EN'] = "bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100)
 		{
 			$result['latest']['data'] = 3;
-//			$result['latest']['FI'] = "välttävä";
-//			$result['latest']['EN'] = "mediocre";
+			$result['latest']['FI'] = "välttävä";
+			$result['latest']['EN'] = "mediocre";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60)
 		{
 			$result['latest']['data'] = 2;
-//			$result['latest']['FI'] = "tyydyttävä";
-//			$result['latest']['EN'] = "satisfactory";
+			$result['latest']['FI'] = "tyydyttävä";
+			$result['latest']['EN'] = "satisfactory";
 		}
 		else 
 		{
 			$result['latest']['data'] = 1;
-//			$result['latest']['FI'] = "hyvä";
-//			$result['latest']['EN'] = "good";
+			$result['latest']['FI'] = "hyvä";
+			$result['latest']['EN'] = "good";
 		}
 		
 		$result['latest']['time'] = $time;
@@ -231,7 +231,6 @@ Class airquality
 			return FALSE;
 		}
 
-		
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
 		$result['metadata']['sourceURL'] = $urlHome;
 		$result['metadata']['status'] = "unconfirmed measurements";
@@ -252,13 +251,9 @@ Class airquality
 			$temp = array_slice($data, -2, 1, TRUE);
 		}
 
+		// Time and data
 		$result['latest']['data'] = $temp[key($temp)];
 		$result['latest']['time'] = key($temp);
-		
-		
-				$this->debugThisArray($result);
-		
-
 
 		return $result;
 	}

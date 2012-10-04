@@ -157,7 +157,6 @@ http://YOURSERVER/PATH/airquality-finland/?p=XXX&rs=86&ss=564
 Todo/Plans
 ----------
 
-- Data types in JSON; string -> float
 - Fetch page into its own method
 - Documentation & blog post
 - Fetch form page only once, is possible
@@ -174,9 +173,7 @@ RELEASE
 - Caching
 -- Based on get parameters, date & hour. If hourly data is available -> write cache, if not, don't. If cache is available, use that, if not, fetch new.
 -- Find out when data is updated
-
-RELEASE
-
+- textual indices also to single measurements, also to qualityIndex response
 - Additional sources? Are these duplicates to ilmanlaatuportaali.fi?
  - hel.fi
  - HSL
