@@ -335,14 +335,14 @@ Class airquality
 			elseif ($data > $indexMaxLimits[$measurement][2])
 			{
 				$index = 3;
-				$FI = "tyydyttävä";
+				$FI = "välttävä";
 				$EN = "mediocre";
 			}
 			elseif ($data > $indexMaxLimits[$measurement][1])
 			{
 				$index = 2;
-				$FI = "erittäin huono";
-				$EN = "very bad";
+				$FI = "tyydyttävä";
+				$EN = "satisfactory";
 			}
 			else
 			{
@@ -397,11 +397,14 @@ Class airquality
 	}
 
 	// ------------------------------------------------------------------------
-	// Tests
+	// Simple tests
 	
 
 	public function runTests()
 	{
+		echo "<pre>";
+		
+		/*
 		$testData['latest']['parts']['nitrogendioxide'] = 13.4;
 		$testData['latest']['parts']['particulateslt2_5um'] = 11.6;
 		$testData['latest']['parts']['particulateslt10um'] = 18.1;
@@ -417,10 +420,58 @@ Class airquality
 		$testData['metadata']['status'] = "unconfirmed measurements";
 		$testData['metadata']['measurement'] = "qualityIndex";
 		$testData['error'] = FALSE;
+		*/
 		
-		print_r ($testData);
+		$testDataMeasurement['latest']['data'] = "40.1";
+		$testDataMeasurement['latest']['time'] = "3";
+		$testDataMeasurement['today'][1] = "15";
+		$testDataMeasurement['today'][2] = "20.5";
+		$testDataMeasurement['today'][3] = "40.1";
+		$testDataMeasurement['today'][4] = NULL;
+		$testDataMeasurement['metadata']['station'] = "Mannerhe";
+		$testDataMeasurement['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
+		$testDataMeasurement['metadata']['sourceURL'] = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=86&ss=564&p=ozone&pv=04.10.2012&j=23&et=table&tj=3600&ls=suomi";
+		$testDataMeasurement['metadata']['status'] = "unconfirmed measurements";
+		$testDataMeasurement['metadata']['measurement'] = "nitrogendioxide";
+		$testDataMeasurement['error'] = FALSE;
 		
-		exit();
+		
+		$testDataMeasurement = $this->convertScrapedToFloat($testDataMeasurement);
+		
+		if (is_float($testDataMeasurement['latest']['data']))
+		{
+			echo "OK: convertScrapedToFloat\n";
+		}
+		else
+		{
+			echo "FAIL: convertScrapedToFloat\n";
+		}
+
+		if (is_float($testDataMeasurement['today'][3]))
+		{
+			echo "OK: convertScrapedToFloat\n";
+		}
+		else
+		{
+			echo "FAIL: convertScrapedToFloat\n";
+		}
+		
+		
+		$testDataMeasurement = $this->addIndex($testDataMeasurement);
+		
+		if (2 === $testDataMeasurement['latest']['index'])
+		{
+			echo "OK: addIndex\n";
+		}
+		else
+		{
+			echo "FAIL: addIndex\n";
+		}
+		
+
+		print_r ($testDataMeasurement);
+		
+		exit("</pre>");
 	}
 
 
