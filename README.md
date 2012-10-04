@@ -4,18 +4,25 @@ API fo Finnish air quality data
 
 This API scrapes air quality data from http://www.ilmanlaatuportaali.fi -portal, and presents it as a RESTful JSON API.
 
-Examples:
- http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
+Examples (more below)
+- http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&rs=86&ss=564
+- http://biomi.kapsi.fi/tools/airquality/?p=qualityIndex&rs=420&ss=721
+- http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&rs=86&ss=564&callback=1
 
-
-Technical notes
----------------
+*Notes*
 
 Requires [Simple HTML DOM Parser 1.5](http://simplehtmldom.sourceforge.net); set path to this in config.php.
 
+- Background info (in Finnish): LINK LATER
+- API as a service (in Finnish): LINK LATER
 
-Data terms of use
------------------
+*Shortcomings (to be fixed later)*
+
+- Doesn't return any data approximately between 0-1 AM EET (because of the logic of the portal)
+- Doesn't return measurement if its not available from the last three hours
+
+
+*Data terms of use*
 
 According to the portal, you are free to 
 
@@ -23,6 +30,14 @@ According to the portal, you are free to
 - Publish the data for public communication
 
 ...provided you credit the http://www.ilmanlaatuportaali.fi as the source.
+
+*License*
+
+See LICENSE.MD
+
+*Data as a wallpaper*
+
+See mobile.md
 
 
 Example responses
@@ -164,9 +179,6 @@ If you set callback=1 in the GET parameters, the data will be wrapped in airQual
 Todo/Plans
 ----------
 
-- License
-- Puutteet listaksi
-
 RELEASE
 
 - Data as an object (instead of an array)
@@ -183,11 +195,6 @@ RELEASE
  - hel.fi
  - HSL
 
-
-Data as a wallpaper
--------------------
-
-See mobile.md
  
 Misc
 ----
