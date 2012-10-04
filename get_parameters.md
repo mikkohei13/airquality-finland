@@ -1,52 +1,52 @@
 
 City - rs
 ---------
-86	Helsinki
-60	Espoo
-420	Tampere
-303	Oulu
-430	Turku
+- 60	Espoo
+- 86	Helsinki
+- 303	Oulu
+- 420	Tampere
+- 430	Turku
 
 Station - ss
 ------------
 
-Helsinki
-564	Mannerheimintie
-425	Kallio 2
-580	Smear II, Kumpula
-206 Vallila 1
-781	Vartiokylä, Huvipolku
-
 Espoo
-841	Leppävaara 4
-208	Luukki
+- 841	Leppävaara 4
+- 208	Luukki
 
-Tampere
-838	Epila 2
-801	Kaleva
-721	Linja-autoasema
-549	Pirkankatu
+Helsinki
+- 564	Mannerheimintie
+- 425	Kallio 2
+- 580	Smear II, Kumpula
+- 206	 Vallila 1
+- 781	Vartiokylä, Huvipolku
 
 Oulu
-446	Oulun keskusta 2
-301	Pyykösjärvi
+- 446	Oulun keskusta 2
+- 301	Pyykösjärvi
+
+Tampere
+- 838	Epila 2
+- 801	Kaleva
+- 721	Linja-autoasema
+- 549	Pirkankatu
 
 Turku
-701	Oriketo
-460	Ruissalo Saaronniemi
-186	Turun kauppatori
+- 701	Oriketo
+- 460	Ruissalo Saaronniemi
+- 186	Turun kauppatori
 
 
-Measurement - p
----------------
-nitrogendioxide
-particulateslt10um
-particulateslt2.5um
-carbonmonoxide
-ozone
+Measurements - p
+----------------
+- nitrogendioxide
+- particulateslt10um
+- particulateslt2.5um
+- carbonmonoxide
+- ozone
 
-TRS ?
-SO2 ?
+- TRS ?
+- SO2 ?
 
 
 Ilmanlaatuportaalin toimintalogiikka:
