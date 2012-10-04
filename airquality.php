@@ -279,7 +279,7 @@ Class airquality
 
 
 	// ------------------------------------------------------------------------
-	// 
+	// Adds index to a measurement
 	
 	public function addIndex($array)
 	{
@@ -361,7 +361,7 @@ Class airquality
 	
 	
 	// ------------------------------------------------------------------------
-	// 
+	// Converts scraped stings to float numbers
 	
 	public function convertScrapedToFloat($array)
 	{
@@ -385,7 +385,7 @@ Class airquality
 	}
 	
 	// ------------------------------------------------------------------------
-	// 
+	// Debug: prints array as JSON and exits
 	
 	public function debugThisArray($array)
 	{
@@ -395,6 +395,34 @@ Class airquality
 		echo json_encode($array);
 		exit();
 	}
+
+	// ------------------------------------------------------------------------
+	// Tests
+	
+
+	public function runTests()
+	{
+		$testData['latest']['parts']['nitrogendioxide'] = 13.4;
+		$testData['latest']['parts']['particulateslt2_5um'] = 11.6;
+		$testData['latest']['parts']['particulateslt10um'] = 18.1;
+		$testData['latest']['parts']['carbonmonoxide'] = 183;
+		$testData['latest']['parts']['ozone'] = 39;
+		$testData['latest']['index'] = 2;
+		$testData['latest']['FI'] = "tyydyttävä";
+		$testData['latest']['FI'] = "satisfactory";
+		$testData['latest']['time'] = 22;
+		$testData['metadata']['station'] = "Mannerhe";
+		$testData['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
+		$testData['metadata']['sourceURL'] = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=86&ss=564&p=ozone&pv=04.10.2012&j=23&et=table&tj=3600&ls=suomi";
+		$testData['metadata']['status'] = "unconfirmed measurements";
+		$testData['metadata']['measurement'] = "qualityIndex";
+		$testData['error'] = FALSE;
+		
+		print_r ($testData);
+		
+		exit();
+	}
+
 
 }
 

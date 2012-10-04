@@ -18,32 +18,12 @@ $data = json_decode($response, TRUE);
 
 // echo "<pre>"; print_r ($data); exit("Exited debug"); // debug
 
-$latest = $data['latest']['data'];
+$latest = $data['latest']['index'];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Calculate colour
 
-/*
-// Old, nicer colours
-if ($latest == NULL)
-	$bgcolor = "#000";
-elseif ($latest < 10)
-	$bgcolor = "#007900";
-elseif ($latest < 20)
-	$bgcolor = "#00FF00";
-elseif ($latest < 30)
-	$bgcolor = "#FFFF00";
-elseif ($latest < 40)
-	$bgcolor = "#FEB300";
-elseif ($latest < 50)
-	$bgcolor = "#FF7F00";
-elseif ($latest < 60)
-	$bgcolor = "#FF4600";
-else
-	$bgcolor = "#FF0000";
-*/
-
-// Official ilmanlaatu.fi colours
+// Official ilmanlaatu.fi colours (lighter)
 if ($latest == NULL)
 	$bgcolor = "#000";
 elseif ($latest == 1)
@@ -58,6 +38,25 @@ elseif ($latest == 5)
 	$bgcolor = "#b5468b";
 else
 	$bgcolor = "#fff";
+	
+
+// Official hsy.fi colours (more saturated)
+if ($latest == NULL)
+	$bgcolor = "#000";
+elseif ($latest == 1)
+	$bgcolor = "#228B22";
+elseif ($latest == 2)
+	$bgcolor = "#FFD700";
+elseif ($latest == 3)
+	$bgcolor = "#FF8C00";
+elseif ($latest == 4)
+	$bgcolor = "#FF0000";
+elseif ($latest == 5)
+	$bgcolor = "#8B008B";
+else
+	$bgcolor = "#fff";
+	
+
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // HTML

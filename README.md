@@ -196,7 +196,7 @@ Todo/Plans
 
 - Documentation & blog post
 - Unit testing
-- Compare index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
+- List of cities & stations
 
 RELEASE
 
