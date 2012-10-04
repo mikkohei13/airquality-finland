@@ -163,6 +163,7 @@ Todo/Plans
 - Fetch form page only once, is possible
 - Unit testing
 - Compare index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
+- Callback function 
 
 RELEASE
 

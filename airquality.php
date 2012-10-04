@@ -48,6 +48,8 @@ Class airquality
 		elseif ($type == "qualityIndex")
 		{
 			$dataArray = $this->qualityIndex($type);
+			
+			
 			return $dataArray;
 		}
 		// If raw measurement
@@ -133,33 +135,33 @@ Class airquality
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 200 || $particulateslt2_5um['latest']['data'] > 75 || $particulateslt10um['latest']['data'] > 200 || $carbonmonoxide['latest']['data'] > 30000 || $ozone['latest']['data'] > 180)
 		{
-			$result['latest']['data'] = "5";
-			$result['latest']['FI'] = "erittäin huono";
-			$result['latest']['EN'] = "very bad";
+			$result['latest']['data'] = 5;
+//			$result['latest']['FI'] = "erittäin huono";
+//			$result['latest']['EN'] = "very bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140)
 		{
-			$result['latest']['data'] = "4";
-			$result['latest']['FI'] = "huono";
-			$result['latest']['EN'] = "bad";
+			$result['latest']['data'] = 4;
+//			$result['latest']['FI'] = "huono";
+//			$result['latest']['EN'] = "bad";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100)
 		{
-			$result['latest']['data'] = "3";
-			$result['latest']['FI'] = "välttävä";
-			$result['latest']['EN'] = "mediocre";
+			$result['latest']['data'] = 3;
+//			$result['latest']['FI'] = "välttävä";
+//			$result['latest']['EN'] = "mediocre";
 		}
 		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60)
 		{
-			$result['latest']['data'] = "2";
-			$result['latest']['FI'] = "tyydyttävä";
-			$result['latest']['EN'] = "satisfactory";
+			$result['latest']['data'] = 2;
+//			$result['latest']['FI'] = "tyydyttävä";
+//			$result['latest']['EN'] = "satisfactory";
 		}
 		else 
 		{
-			$result['latest']['data'] = "1";
-			$result['latest']['FI'] = "hyvä";
-			$result['latest']['EN'] = "good";
+			$result['latest']['data'] = 1;
+//			$result['latest']['FI'] = "hyvä";
+//			$result['latest']['EN'] = "good";
 		}
 		
 		$result['latest']['time'] = $time;
@@ -210,7 +212,7 @@ Class airquality
 		{
 			$data[$row->find('td', 0)->plaintext] = $row->find('td', 1)->plaintext;
 		}
-
+		
 		// Generate array
 		// metadata fields
 		$result['error'] = FALSE;
@@ -238,19 +240,61 @@ Class airquality
 		// Save all data as todays data
 		$result['today'] = $data;
 
+		// Convert scraped text to numbers
+		$result = $this->convertScrapedToFloat($result);
+		
 		// save latest also as latest
 		$temp = array_slice($data, -1, 1, TRUE);
 
 		// if latest is empty, take measurement before that
-		if (empty($temp[0]['data']))
+		if (is_null($temp[0]['data']))
 		{
 			$temp = array_slice($data, -2, 1, TRUE);
 		}
 
 		$result['latest']['data'] = $temp[key($temp)];
 		$result['latest']['time'] = key($temp);
+		
+		
+				$this->debugThisArray($result);
+		
+
 
 		return $result;
+	}
+
+	// ------------------------------------------------------------------------
+	// 
+	
+	public function convertScrapedToFloat($array)
+	{
+		$array['latest']['data'] = (float) $array['latest']['data'];
+		
+		foreach ($array['today'] as $key => $value)
+		{
+			if ("" == $value)
+			{
+				$array['today'][$key] = NULL;
+			}
+			else
+			{
+				$array['today'][$key] = (float) $value;
+			}
+		}
+		
+		return $array;
+	}
+	
+	// ------------------------------------------------------------------------
+	// 
+	
+	public function debugThisArray($array)
+	{
+		$array['DEBUG'] = "------------------------------ DEBUG MODE ON ------------------------------";
+	
+		header('Content-Type: application/json; charset=utf-8');
+		echo json_encode($array);
+		exit();
 	}
 
 }
