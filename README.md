@@ -188,6 +188,8 @@ http://YOURSERVER/PATH/airquality-finland/?p=XXX&rs=86&ss=564
 		message: "unsupported p (measurement)<br />"
 	}
 
+## Response as JSONP
+If you set callback=1 in the GET parameters, the data will be wrapped in airQualityResponse function call.
 
 Todo/Plans
 ----------
@@ -195,7 +197,6 @@ Todo/Plans
 - Documentation & blog post
 - Unit testing
 - Compare index calculation: http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx & http://www.ilmanlaatu.fi/ilmansaasteet/indeksi/indeksi.php
-- Callback function 
 
 RELEASE
 

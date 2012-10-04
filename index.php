@@ -36,7 +36,14 @@ http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=60&ss=841&p=nitroge
 $airquality = new airquality($_GET["rs"], $_GET["ss"]);
 $result = $airquality->measurement($_GET["p"]);
 
-echo json_encode($result);
+if (1 == $_GET['callback'])
+{
+	echo "airQualityResponse(" . json_encode($result) . ");";
+}
+else
+{
+	echo json_encode($result);
+}
 
 
 ?>
