@@ -61,6 +61,8 @@ Example responses
 ## Single measurement
 http://YOURSERVER/PATH/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
 
+All units are µg/m3.
+
 	{
 	error: false,
 	metadata: {
