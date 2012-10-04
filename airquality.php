@@ -367,7 +367,14 @@ Class airquality
 	{
 //		echo "<pre>"; print_r ($array); exit();
 		
-		$array['latest']['data'] = (float) $array['latest']['data'];
+		if (empty($array['latest']['data']))
+		{
+			$array['latest']['data'] = NULL;
+		}
+		else
+		{
+			$array['latest']['data'] = (float) $array['latest']['data'];
+		}
 		
 		foreach ($array['today'] as $key => $value)
 		{
