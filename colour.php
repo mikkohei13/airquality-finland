@@ -43,18 +43,19 @@ else
 	$bgcolor = "#FF0000";
 */
 
+// Official ilmanlaatu.fi colours
 if ($latest == NULL)
 	$bgcolor = "#000";
 elseif ($latest == 1)
-	$bgcolor = "#090";
+	$bgcolor = "#67e567";
 elseif ($latest == 2)
-	$bgcolor = "#990";
+	$bgcolor = "#fff055";
 elseif ($latest == 3)
-	$bgcolor = "#f90";
+	$bgcolor = "#ffbb58";
 elseif ($latest == 4)
-	$bgcolor = "#F00";
+	$bgcolor = "#fe4543";
 elseif ($latest == 5)
-	$bgcolor = "#d09";
+	$bgcolor = "#b5468b";
 else
 	$bgcolor = "#fff";
 
