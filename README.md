@@ -211,11 +211,9 @@ You can set the background of your Android device to change colour based on the 
 Misc
 ----
 
- - Now input validation & error messaging is done in the sraping class; is this ok? Yes, if the point of this to be an API (object is not used directly in applications). 
+- Now input validation & error messaging is done in the sraping class; is this ok? Yes, if the point of this to be an API (object is not used directly in applications). 
 
-https://github.com/lllllT/MultiPictureLiveWallpaper
-https://github.com/lllllT/MultiPictureLiveWallpaper-PicasaPlugin
-https://play.google.com/store/apps/details?id=org.tamanegi.wallpaper.multipicture&feature=search_result#?t=W251bGwsMSwxLDEsIm9yZy50YW1hbmVnaS53YWxscGFwZXIubXVsdGlwaWN0dXJlIl0.
-
-
+- https://github.com/lllllT/MultiPictureLiveWallpaper
+- https://github.com/lllllT/MultiPictureLiveWallpaper-PicasaPlugin
+- https://play.google.com/store/apps/details?id=org.tamanegi.wallpaper.multipicture&feature=search_result#?t=W251bGwsMSwxLDEsIm9yZy50YW1hbmVnaS53YWxscGFwZXIubXVsdGlwaWN0dXJlIl0.
 
