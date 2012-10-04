@@ -1,4 +1,8 @@
 <?php
+/*
+Displays air quality data from Helsinki as a coloured web page.
+*/
+
 header('Content-Type: text/html; charset=utf-8');
 
 require_once "config.php";
@@ -21,7 +25,7 @@ $data = json_decode($response, TRUE);
 $latest = $data['latest']['index'];
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Calculate colour
+// Calculate colours
 
 // Official ilmanlaatu.fi colours (lighter)
 if ($latest == NULL)

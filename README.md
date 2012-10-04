@@ -14,36 +14,6 @@ Technical notes
 Requires [Simple HTML DOM Parser 1.5](http://simplehtmldom.sourceforge.net); set path to this in config.php.
 
 
-Android wallpaper
------------------
-
-You can set the background of your Android device to change colour based on the air quality data. There are few free third-party apps for this:
-
-### Web LiveWallpaper by Chikashi Yajima
-
-- Install [Web LiveWallpaper](https://play.google.com/store/apps/details?id=com.yaji.weblivewallpaper)
-- Open browser, go to YOURDOMAIN/PATH/colour.php
-- Menu > Share > Web LiveWallpaper > click Apply
--- If you can't see the apply button, turn the phone horizontal; the button is behing the ad.
-
-### WebLiveWallpaper by Michael Haar
-
-- Install [WebLiveWallpaper app](https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper) for Android
-- Open it from Wallpapers > Live Wallpapers
-- Settings > New
- - Source YOURDOMAIN/PATH/colour.php
- - Refresh 600
-- View settings
-- Website snapshot: check
-- Visible area: 0-0-100-100
-- Save & enter name
-- Start > My sites
-- Select name you entered
-- (wait)
-- Click Set wallpaper
-
-
-
 Data terms of use
 -----------------
 
@@ -113,7 +83,7 @@ All units are µg/m3.
 ## Air quality index
 http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 
-*Unit of the data is class:* 
+*Unit of the data is a class:* 
 - 1 = good / hyvä
 - 2 = satisfactory / tyydyttävä
 - 3 = mediocre / välttävä
@@ -194,12 +164,6 @@ If you set callback=1 in the GET parameters, the data will be wrapped in airQual
 Todo/Plans
 ----------
 
-- Documentation & blog post
-- Unit testing
-- List of cities & stations
-
-RELEASE
-
 - Data as an object (instead of an array)
 -- Move index calculation to its own method
 -- Handle null data (at midnight)
@@ -213,6 +177,35 @@ RELEASE
 - Additional sources? Are these duplicates to ilmanlaatuportaali.fi?
  - hel.fi
  - HSL
+
+
+Android wallpaper
+-----------------
+
+You can set the background of your Android device to change colour based on the air quality data. There are few free third-party apps for this:
+
+### Web LiveWallpaper by Chikashi Yajima
+
+- Install [Web LiveWallpaper](https://play.google.com/store/apps/details?id=com.yaji.weblivewallpaper)
+- Open browser, go to YOURDOMAIN/PATH/colour.php
+- Menu > Share > Web LiveWallpaper > click Apply
+-- If you can't see the apply button, turn the phone horizontal; the button is behing the ad.
+
+### WebLiveWallpaper by Michael Haar
+
+- Install [WebLiveWallpaper app](https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper) for Android
+- Open it from Wallpapers > Live Wallpapers
+- Settings > New
+ - Source YOURDOMAIN/PATH/colour.php
+ - Refresh 600
+- View settings
+- Website snapshot: check
+- Visible area: 0-0-100-100
+- Save & enter name
+- Start > My sites
+- Select name you entered
+- (wait)
+- Click Set wallpaper
 
  
 Misc
