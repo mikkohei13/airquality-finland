@@ -11,7 +11,7 @@ require_once "config.php";
 // Get data
 
 // Mannerheimintie, Helsinki
-$url = $basePath . "?p=qualityIndex&rs=86&ss=564";
+$url = $basePath . "?p=qualityIndex&ss=564";
 
 $client = curl_init($url);
 curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
