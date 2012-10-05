@@ -5,9 +5,9 @@ API fo Finnish air quality data
 This API scrapes air quality data from http://www.ilmanlaatuportaali.fi -portal, and presents it as a RESTful JSON API.
 
 Examples (more below)
-- http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&rs=86&ss=564
-- http://biomi.kapsi.fi/tools/airquality/?p=qualityIndex&rs=420&ss=721
-- http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&rs=86&ss=564&callback=1
+- http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&ss=564
+- http://biomi.kapsi.fi/tools/airquality/?p=qualityIndex&ss=721
+- http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&ss=564&callback=1
 
 ### Notes
 
@@ -43,7 +43,7 @@ Example responses
 -----------------
 
 ## Single measurement
-http://YOURSERVER/PATH/airquality-finland/?p=nitrogendioxide&rs=86&ss=564
+http://YOURSERVER/PATH/airquality-finland/?p=nitrogendioxide&ss=564
 
 All units are µg/m3.
 
@@ -53,7 +53,7 @@ All units are µg/m3.
 		{
 			station: "Mannerhe",
 			source: "Ilmanlaatuportaali, Ilmatieteen laitos",
-			sourceURL: "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=86&ss=564&p=nitrogendioxide&pv=26.09.2012&j=23&et=table&tj=3600&ls=suomi",
+			sourceURL: "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&ss=564&p=nitrogendioxide&pv=26.09.2012&j=23&et=table&tj=3600&ls=suomi",
 			status: "unconfirmed measurements",
 			measurement: "nitrogendioxide"
 		},
@@ -104,7 +104,7 @@ All units are µg/m3.
 - 4 = bad / huono
 - 5 = very bad / erittäin huono
 
-http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&ss=564
 		
 	{
 		latest:
@@ -126,7 +126,7 @@ http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 		{
 			station: "Mannerhe",
 			source: "Ilmanlaatuportaali, Ilmatieteen laitos",
-			sourceURL: "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=86&ss=564&p=ozone&pv=04.10.2012&j=23&et=table&tj=3600&ls=suomi",
+			sourceURL: "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&ss=564&p=ozone&pv=04.10.2012&j=23&et=table&tj=3600&ls=suomi",
 			status: "unconfirmed measurements",
 			measurement: "qualityIndex"
 		},
@@ -135,7 +135,7 @@ http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 
 
 ## Station number which does not exist
-http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=5640
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&ss=5640
 
 	{
 		latest:
@@ -151,23 +151,15 @@ http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=5640
 	}
 
 ## Invalid station number
-http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=XXX
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&ss=XXX
 
 	{
 		error: true,
 		message: "ss (station) must be a number"
 	}
 
-## Invalid city number
-http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=XXX&ss=564
-
-	{
-		error: true,
-		message: "rs (city) must be a number"
-	}
-
 ## Invalid measurement code
-http://YOURSERVER/PATH/airquality-finland/?p=XXX&rs=86&ss=564
+http://YOURSERVER/PATH/airquality-finland/?p=XXX&ss=564
 
 	{
 		error: true,

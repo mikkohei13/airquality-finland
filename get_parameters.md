@@ -1,11 +1,4 @@
 
-City - rs
----------
-- 60	Espoo
-- 86	Helsinki
-- 303	Oulu
-- 420	Tampere
-- 430	Turku
 
 Station - ss
 ------------
@@ -46,6 +39,16 @@ Measurements - p
 - ozone					otsoni
 - qualityIndex			ilmanlaatuindeksi
 
+
+City - rs
+---------
+This is not needed in order to fetch the data.
+
+- 60	Espoo
+- 86	Helsinki
+- 303	Oulu
+- 420	Tampere
+- 430	Turku
 
 Ilmanlaatuportaalin toimintalogiikka:
 --------------------------------------
