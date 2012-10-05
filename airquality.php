@@ -10,17 +10,8 @@ Class airquality
 	// Constructor
 	// Checks that city & station are numbers
 	
-	public function __construct($city, $station)
+	public function __construct($station)
 	{
-		if (is_numeric($city) && $city == (int) $city)
-		{
-			$this->city = $city;
-		}
-		else
-		{
-			$this->message .= "rs (city) must be a number";
-		}
-
 		if (is_numeric($station) && $station == (int) $station)
 		{
 			$this->station = $station;

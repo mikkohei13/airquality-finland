@@ -7,7 +7,7 @@ require_once "airquality.php";
 
 
 
-$airquality = new airquality($_GET["rs"], $_GET["ss"]);
+$airquality = new airquality($_GET["ss"]);
 $result = $airquality->measurement($_GET["p"]);
 
 if (1 == $_GET['callback'])
