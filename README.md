@@ -96,7 +96,6 @@ All units are µg/m3.
 
 
 ## Air quality index
-http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 
 *Unit of the data is a class:* 
 - 1 = good / hyvä
@@ -104,6 +103,8 @@ http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 - 3 = mediocre / välttävä
 - 4 = bad / huono
 - 5 = very bad / erittäin huono
+
+http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
 		
 	{
 		latest:
