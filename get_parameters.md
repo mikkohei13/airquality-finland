@@ -39,14 +39,12 @@ Turku
 
 Measurements - p
 ----------------
-- nitrogendioxide
-- particulateslt10um
-- particulateslt2.5um
-- carbonmonoxide
-- ozone
-
-- TRS ?
-- SO2 ?
+- nitrogendioxide		typpidioksidi
+- particulateslt10um	hengitettävät hiukkaset
+- particulateslt2_5um	pienhiukkaset
+- carbonmonoxide		hiilimonoksidi
+- ozone					otsoni
+- qualityIndex			ilmanlaatuindeksi
 
 
 Ilmanlaatuportaalin toimintalogiikka:
