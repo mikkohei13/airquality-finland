@@ -9,20 +9,21 @@ Examples (more below)
 - http://biomi.kapsi.fi/tools/airquality/?p=qualityIndex&rs=420&ss=721
 - http://biomi.kapsi.fi/tools/airquality/?p=nitrogendioxide&rs=86&ss=564&callback=1
 
-*Notes*
+### Notes
 
 Requires [Simple HTML DOM Parser 1.5](http://simplehtmldom.sourceforge.net); set path to this in config.php.
 
 - Background info (in Finnish): LINK LATER
 - API as a service (in Finnish): LINK LATER
+- Setting data wallpaper colour: see mobile.md
 
-*Shortcomings (to be fixed later)*
+### Shortcomings (to be fixed later)
 
 - Doesn't return any data approximately between 0-1 AM EET (because of the logic of the portal)
 - Doesn't return measurement if its not available from the last three hours
 
 
-*Data terms of use*
+### Data terms of use
 
 According to the portal, you are free to 
 
@@ -31,13 +32,11 @@ According to the portal, you are free to
 
 ...provided you credit the http://www.ilmanlaatuportaali.fi as the source.
 
-*License*
+### License
 
 See LICENSE.MD
 
-*Data as a wallpaper*
 
-See mobile.md
 
 
 Example responses
@@ -94,6 +93,7 @@ All units are µg/m3.
 			EN: "good"
 		}
 	}
+
 
 ## Air quality index
 http://YOURSERVER/PATH/airquality-finland/?p=qualityIndex&rs=86&ss=564
