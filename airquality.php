@@ -216,28 +216,26 @@ Class airquality
 		// Save all data as todays data
 		$result['today'] = $data;
 
-		// save latest also as latest
-		$temp = array_slice($data, -1, 1, TRUE);
 
-		// TODO: make this to handle n empty values
-		// if latest or next to latest is empty, take measurement before that
-		if (empty($temp[0]['data']))
-		{
-			$temp = array_slice($data, -2, 1, TRUE);
-		}
-		if (empty($temp[0]['data']))
-		{
-			$temp = array_slice($data, -3, 1, TRUE);
-		}
+//		$this->debugThisArray($data); // debug
 
-		// Time and data
-		$result['latest']['data'] = $temp[key($temp)];
-		$result['latest']['time'] = key($temp);
+		// Takes last element of array
+		end($data);
+		while ("" == current($data))
+		{
+			prev($data);
+		}
+		
+		$result['latest']['data'] = current($data);
+		$result['latest']['time'] = key($data);
+		
+//		print_r ($result); exit(); // debug
+
 
 		// Convert scraped text to numbers
 		$result = $this->convertScrapedToFloat($result);
 		
-//		$result = $this->addIndex($result);
+		$result = $this->addIndex($result);
 
 		return $result;
 	}
