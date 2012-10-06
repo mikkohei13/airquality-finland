@@ -10,8 +10,12 @@ require_once "config.php";
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Get data
 
-// Mannerheimintie, Helsinki
-$url = $basePath . "?p=qualityIndex&ss=564";
+if ((int) $_GET['ss'] == $_GET['ss'])
+{
+	$ss = $_GET['ss'];
+}
+
+$url = $basePath . "?p=qualityIndex&ss=" . $ss;
 
 $client = curl_init($url);
 curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
@@ -27,6 +31,7 @@ $latest = $data['latest']['index'];
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Calculate colours
 
+/*
 // Official ilmanlaatu.fi colours (lighter)
 if ($latest == NULL)
 	$bgcolor = "#000";
@@ -42,7 +47,7 @@ elseif ($latest == 5)
 	$bgcolor = "#b5468b";
 else
 	$bgcolor = "#fff";
-	
+*/
 
 // Official hsy.fi colours (more saturated)
 if ($latest == NULL)

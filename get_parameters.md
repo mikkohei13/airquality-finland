@@ -2,90 +2,91 @@
 
 Stations - ss
 -------------
+http://muistio.tieke.fi/mittausasemat
 
-841	Espoo: Leppävaara 4
-208	Espoo: Luukki
-184	Harjavalta: Kaleva
-179	Harjavalta: Pirkkala
-513	Heinola: Heinolan keskusta
-425	Helsinki: Kallio 2
-564	Helsinki: Mannerheimintie
-580	Helsinki: Smear III, Kumpula
-206	Helsinki: Vallila 1
-781	Helsinki: Vartiokylä Huivipolku
-368	Hämeenlinna: Evo (Lammi)
-853	Hämeenlinna: Niittykatu
-428	Ilomantsi: Ilomantsi
-424	Imatra: Mansikkala
-273	Imatra: Pelkolan tulliasema, Raja
-80	Imatra: Rautionkylä
-433	Imatra: Teppanala
-357	Inari: Raja-Jooseppi
-511	Joensuu: Koskikatu 1
-453	Jokioinen: Jokioinen
-464	Jyväskylä: Lyseo 2
-431	Jyväskylä: Palokka 2
-78	Jämsä: Lääkäritalo
-868	Järvenpää: Järvenpää2
-569	Kaarina: Kaarina
-602	Kajaani: Kajaanin keskusta 3
-404	Kokkola: Keskusta, Pitkänsillankatu
-227	Kokkola: Ykspihlaja
-62	Kotka: Kirjastotalo
-438	Kotka: Rauhala
-574	Kouvola: Kouvola, Käsityöläiskatu
-86	Kouvola: Kuusankoski, Urheilukentäntie
-363	Kuopio: Kasarmipuisto
-558	Kuopio: Maaherrankatu
-294	Kuopio: Sorsasalo
-839	Kuopio: Tasavallankatu
-352	Kuusamo: Oulanka
-66	Lahti: Kisapuisto
-455	Lahti: Laune
-867	Lahti: Satulakatu
-74	Lahti: Tori
-67	Lahti: Vesku 11
-283	Lappeenranta: Ihalainen
-434	Lappeenranta: Joutsenon keskusta
-606	Lappeenranta: Lappeenrannan keskusta 4
-378	Lappeenranta: Lauritsala
-379	Lappeenranta: Pulp
-280	Lappeenranta: Tirilä, Pekkasenkatu
-761	Lohja: Nahkurintori 2
-469	Luoto: Vikarholmen
-845	Länsi-Turunmaa: Parainen
-349	Länsi-Turunmaa: Utö
-356	Muonio: Sammaltunturi
-444	Naantali: Naantalin keskusta
-446	Oulu: Oulun keskusta 2
-301	Oulu: Pyykösjärvi
-397	Pietarsaari: Bottenviksvägen
-588	Pori: Porin keskusta
-339	Porvoo: Mustijoki
-846	Porvoo: Nyby
-833	Raahe: Merikatu
-570	Raahe: Raahen keskusta 2
-821	Raisio: Kaanaan koulu
-120	Raisio: Raision keskusta
-510	Rauma: Hallikatu
-601	Savonlinna: Olavinkatu
-848	Seinäjoki: Vapaudentie 6a
-838	Tampere: Epila 2
-801	Tampere: Kaleva
-721	Tampere: Linja-autoasema
-549	Tampere: Pirkankatu
-701	Turku: Oriketo
-460	Turku: Ruissalo Saaronniemi
-186	Turku: Turun kauppatori
-553	Utsjoki: Kevo
-390	Valkeakoski: Hiekkatekonurmi
-392	Valkeakoski: Valkeakosken terveyskeskus
-370	Vantaa: Tikkurila 3
-557	Varkaus: Psaari 2
-124	Varkaus: Pääterveysasema
-463	Varkaus: Taulumäki (toripaviljonki)
-372	Ähtäri: Ähtäri 2
-548	Äänekoski: Äänekoski Hiski
+841        Espoo: Leppävaara 4    60.22025897    24.81118349
+208        Espoo: Luukki       60.313288    24.689477
+184        Harjavalta: Kaleva
+179        Harjavalta: Pirkkala
+513        Heinola: Heinolan keskusta
+425        Helsinki: Kallio 2    60.1874667    24.9505167
+564        Helsinki: Mannerheimintie    60.169643    24.939261
+580        Helsinki: Smear III, Kumpula
+206        Helsinki: Vallila 1    60.193665    24.963942
+781        Helsinki: Vartiokylä Huivipolku    60.223886    25.102528
+368        Hämeenlinna: Evo (Lammi)
+853        Hämeenlinna: Niittykatu
+428        Ilomantsi: Ilomantsi
+424        Imatra: Mansikkala
+273        Imatra: Pelkolan tulliasema, Raja
+80        Imatra: Rautionkylä
+433        Imatra: Teppanala
+357        Inari: Raja-Jooseppi
+511        Joensuu: Koskikatu 1
+453        Jokioinen: Jokioinen
+464        Jyväskylä: Lyseo 2
+431        Jyväskylä: Palokka 2
+78        Jämsä: Lääkäritalo
+868        Järvenpää: Järvenpää2
+569        Kaarina: Kaarina
+602        Kajaani: Kajaanin keskusta 3
+404        Kokkola: Keskusta, Pitkänsillankatu
+227        Kokkola: Ykspihlaja
+62        Kotka: Kirjastotalo
+438        Kotka: Rauhala
+574        Kouvola: Kouvola, Käsityöläiskatu
+86        Kouvola: Kuusankoski, Urheilukentäntie
+363        Kuopio: Kasarmipuisto
+558        Kuopio: Maaherrankatu
+294        Kuopio: Sorsasalo
+839        Kuopio: Tasavallankatu
+352        Kuusamo: Oulanka
+66        Lahti: Kisapuisto
+455        Lahti: Laune
+867        Lahti: Satulakatu
+74        Lahti: Tori
+67        Lahti: Vesku 11
+283        Lappeenranta: Ihalainen
+434        Lappeenranta: Joutsenon keskusta
+606        Lappeenranta: Lappeenrannan keskusta 4
+378        Lappeenranta: Lauritsala
+379        Lappeenranta: Pulp
+280        Lappeenranta: Tirilä, Pekkasenkatu
+761        Lohja: Nahkurintori 2
+469        Luoto: Vikarholmen
+845        Länsi-Turunmaa: Parainen
+349        Länsi-Turunmaa: Utö
+356        Muonio: Sammaltunturi
+444        Naantali: Naantalin keskusta
+446        Oulu: Oulun keskusta 2
+301        Oulu: Pyykösjärvi
+397        Pietarsaari: Bottenviksvägen
+588        Pori: Porin keskusta
+339        Porvoo: Mustijoki
+846        Porvoo: Nyby
+833        Raahe: Merikatu
+570        Raahe: Raahen keskusta 2
+821        Raisio: Kaanaan koulu
+120        Raisio: Raision keskusta
+510        Rauma: Hallikatu
+601        Savonlinna: Olavinkatu
+848        Seinäjoki: Vapaudentie 6a
+838        Tampere: Epila 2
+801        Tampere: Kaleva
+721        Tampere: Linja-autoasema
+549        Tampere: Pirkankatu
+701        Turku: Oriketo
+460        Turku: Ruissalo Saaronniemi
+186        Turku: Turun kauppatori
+553        Utsjoki: Kevo
+390        Valkeakoski: Hiekkatekonurmi
+392        Valkeakoski: Valkeakosken terveyskeskus
+370        Vantaa: Tikkurila 3    60.289946    25.039532
+557        Varkaus: Psaari 2
+124        Varkaus: Pääterveysasema
+463        Varkaus: Taulumäki (toripaviljonki)
+372        Ähtäri: Ähtäri 2
+548        Äänekoski: Äänekoski Hiski
 
 
 Measurements - p
