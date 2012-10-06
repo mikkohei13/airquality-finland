@@ -97,6 +97,7 @@ Measurements - p
 - carbonmonoxide		hiilimonoksidi
 - ozone					otsoni
 - sulphurdioxide		rikkidioksidi
+- odorsulphurcompounds	haisevat rikkiyhdisteet (TRS)
 - qualityIndex			ilmanlaatuindeksi
 
 
