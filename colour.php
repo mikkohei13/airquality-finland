@@ -24,7 +24,7 @@ curl_close($client);
 
 $data = json_decode($response, TRUE);
 
-// echo "<pre>"; print_r ($data); exit("Exited debug"); // debug
+ echo "<pre>URL: $url \n";  print_r ($data); exit("Exited debug"); // debug
 
 $latest = $data['latest']['index'];
 
