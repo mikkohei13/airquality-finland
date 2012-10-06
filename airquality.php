@@ -134,7 +134,7 @@ Class airquality
 		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
 		// All units are micrograms/m3
 		
-		if (NULL == $nitrogendioxide['latest']['data'] && NULL == $particulateslt2_5um['latest']['data'] && NULL == $particulateslt10um['latest']['data'] && NULL == $carbonmonoxide['latest']['data'] && NULL == $ozone['latest']['data'] && NULL == $sulphurdioxide['latest']['data'] && NULL == $odorsulphurcompounds['latest']['data'])
+		if (NULL ===$nitrogendioxide['latest']['data'] && NULL ===$particulateslt2_5um['latest']['data'] && NULL ===$particulateslt10um['latest']['data'] && NULL ===$carbonmonoxide['latest']['data'] && NULL ===$ozone['latest']['data'] && NULL ===$sulphurdioxide['latest']['data'] && NULL ===$odorsulphurcompounds['latest']['data'])
 		{
 			$result['error'] = TRUE;
 			$result['message'] = "this station doesn't yet have an air quality index for today<br />";
@@ -247,6 +247,7 @@ Class airquality
 
 		// Convert scraped text to numbers
 		$result = $this->convertScrapedToFloat($result);
+//		print_r ($result); exit(); // debug
 		
 		$result = $this->addIndex($result);
 
@@ -388,7 +389,7 @@ Class airquality
 	{
 //		echo "<pre>"; print_r ($array); exit();
 		
-		if (empty($array['latest']['data']))
+		if (! isset($array['latest']['data']))
 		{
 			$array['latest']['data'] = NULL;
 		}
