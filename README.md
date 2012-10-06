@@ -172,7 +172,9 @@ If you set callback=1 in the GET parameters, the data will be wrapped in airQual
 Todo/Plans
 ----------
 
-RELEASE
+-"Mobile app"
+--Station coordinates
+--Web service to return nearest station (number) based on given coordinates
 
 - Data as an object (instead of an array)
 -- Move index calculation to its own method
