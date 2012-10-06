@@ -24,7 +24,7 @@ curl_close($client);
 
 $data = json_decode($response, TRUE);
 
- echo "<pre>URL: $url \n";  print_r ($data); exit("Exited debug"); // debug
+// echo "<pre>URL: $url \n";  print_r ($data); exit("Exited debug"); // debug
 
 $latest = $data['latest']['index'];
 
@@ -96,12 +96,13 @@ p {
 <body>
 <p id="latest"><?php echo $data['latest']['FI']; ?></p>
 <p id="detail"><?php
-echo "klo " . $data['latest']['time'] . " @ " . $data['metadata']['station'] . "<br />\n"
+echo "klo " . $data['latest']['time'] . " @ <strong>" . $data['metadata']['station'] . "</strong><br />\n"
 	. "typpidioksidi " . $data['latest']['parts']['nitrogendioxide'] . "<br />\n"
 	. "pienhiukkaset " . $data['latest']['parts']['particulateslt2.5um'] . "<br />\n"
 	. "hengitettävät hiukkaset " . $data['latest']['parts']['particulateslt10um'] . "<br />\n"
 	. "hiilimonoksidi " . $data['latest']['parts']['carbonmonoxide'] . "<br />\n"
-	. "otsoni " . $data['latest']['parts']['ozone']
+	. "otsoni " . $data['latest']['parts']['ozone'] . "<br />\n"
+	. "rikkidioksidi " . $data['latest']['parts']['sulphurdioxide']
 ;
 ?></p>
 </body>

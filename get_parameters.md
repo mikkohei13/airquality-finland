@@ -96,6 +96,7 @@ Measurements - p
 - particulateslt2_5um	pienhiukkaset
 - carbonmonoxide		hiilimonoksidi
 - ozone					otsoni
+- sulphurdioxide		rikkidioksidi
 - qualityIndex			ilmanlaatuindeksi
 
 

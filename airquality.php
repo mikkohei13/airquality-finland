@@ -44,7 +44,7 @@ Class airquality
 			return $dataArray;
 		}
 		// If raw measurement
-		elseif ($type == "nitrogendioxide" || $type == "particulateslt10um" || $type == "particulateslt2.5um" || $type == "carbonmonoxide" || $type == "ozone")
+		elseif ($type == "nitrogendioxide" || $type == "particulateslt10um" || $type == "particulateslt2.5um" || $type == "carbonmonoxide" || $type == "ozone" || $type == "sulphurdioxide")
 		{
 			$dataArray = $this->scrapeMeasurement($type);
 			
@@ -115,34 +115,42 @@ Class airquality
 			$metadata = $ozone['metadata'];
 		}
 		
+		$sulphurdioxide = $this->measurement("sulphurdioxide");
+		$result['latest']['parts']['sulphurdioxide'] = $sulphurdioxide['latest']['data'];
+		if (isset($sulphurdioxide['latest']['time']))
+		{
+			$time = $sulphurdioxide['latest']['time'];
+			$metadata = $sulphurdioxide['metadata'];
+		}
+		
 		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
 		// All units are micrograms/m3
 		
-		if (NULL == $nitrogendioxide['latest']['data'] && NULL == $particulateslt2_5um['latest']['data'] && NULL == $particulateslt10um['latest']['data'] && NULL == $carbonmonoxide['latest']['data'] && NULL == $ozone['latest']['data'])
+		if (NULL == $nitrogendioxide['latest']['data'] && NULL == $particulateslt2_5um['latest']['data'] && NULL == $particulateslt10um['latest']['data'] && NULL == $carbonmonoxide['latest']['data'] && NULL == $ozone['latest']['data'] && NULL == $sulphurdioxide['latest']['data'])
 		{
 			$result['error'] = TRUE;
 			$result['message'] = "this station doesn't yet have an air quality index for today<br />";
 			return $result;
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 200 || $particulateslt2_5um['latest']['data'] > 75 || $particulateslt10um['latest']['data'] > 200 || $carbonmonoxide['latest']['data'] > 30000 || $ozone['latest']['data'] > 180)
+		elseif ($nitrogendioxide['latest']['data'] > 200 || $particulateslt2_5um['latest']['data'] > 75 || $particulateslt10um['latest']['data'] > 200 || $carbonmonoxide['latest']['data'] > 30000 || $ozone['latest']['data'] > 180 || $sulphurdioxide['latest']['data'] > 350)
 		{
 			$result['latest']['index'] = 5;
 			$result['latest']['FI'] = "erittäin huono";
 			$result['latest']['EN'] = "very bad";
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140)
+		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140 || $sulphurdioxide['latest']['data'] > 250)
 		{
 			$result['latest']['index'] = 4;
 			$result['latest']['FI'] = "huono";
 			$result['latest']['EN'] = "bad";
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100)
+		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100 || $sulphurdioxide['latest']['data'] > 80)
 		{
 			$result['latest']['index'] = 3;
 			$result['latest']['FI'] = "välttävä";
 			$result['latest']['EN'] = "mediocre";
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60)
+		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60 || $sulphurdioxide['latest']['data'] > 20)
 		{
 			$result['latest']['index'] = 2;
 			$result['latest']['FI'] = "tyydyttävä";
@@ -304,6 +312,11 @@ Class airquality
 		$indexMaxLimits['ozone'][2] = 100;
 		$indexMaxLimits['ozone'][3] = 140;
 		$indexMaxLimits['ozone'][4] = 180;
+		
+		$indexMaxLimits['sulphurdioxide'][1] = 20;
+		$indexMaxLimits['sulphurdioxide'][2] = 80;
+		$indexMaxLimits['sulphurdioxide'][3] = 250;
+		$indexMaxLimits['sulphurdioxide'][4] = 350;
 		
 		
 		$data = $array['latest']['data'];
