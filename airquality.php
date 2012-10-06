@@ -2,13 +2,13 @@
 
 Class airquality
 {
-	var $city = FALSE;
 	var $station = FALSE;
 	var $message = "";
+	var $messageStation = "";
 	
 	// ------------------------------------------------------------------------
 	// Constructor
-	// Checks that city & station are numbers
+	// Checks that station is number
 	
 	public function __construct($station)
 	{
@@ -18,7 +18,7 @@ Class airquality
 		}
 		else
 		{
-			$this->message .= "ss (station) must be a number";
+			$this->messageStation .= "ss (station) must be a number";
 		}
 	}
 	
@@ -28,8 +28,10 @@ Class airquality
 	
 	public function measurement($type)
 	{
-		// If error with city or station
-		if ("" != $this->message)
+//		echo "functionMEASUREMENT $type\n"; // debug
+	
+		// If error with station
+		if ("" != $this->messageStation)
 		{
 			$errorArray['error'] = TRUE;
 			$errorArray['message'] = $this->message;
@@ -39,8 +41,6 @@ Class airquality
 		elseif ($type == "qualityIndex")
 		{
 			$dataArray = $this->qualityIndex($type);
-			
-			
 			return $dataArray;
 		}
 		// If raw measurement
@@ -51,7 +51,7 @@ Class airquality
 			// If this data is missing
 			if (FALSE === $dataArray)
 			{
-				$this->message .= "this station doesn't have this measurement<br />";
+				$this->message .= "this station doesn't have this measurement (X)<br />";
 				$errorArray['error'] = TRUE;
 				$errorArray['message'] = $this->message;
 				return $errorArray;
@@ -75,6 +75,14 @@ Class airquality
 	{
 		// Goes through all measurements, tries to pick the time & metadata from each, since we don't know which measurement is available. This will lead to the sourceURL will be from the last measurement. 
 		
+		$particulateslt10um = $this->measurement("particulateslt10um");
+		$result['latest']['parts']['particulateslt10um'] = $particulateslt10um['latest']['data'];
+		if (isset($particulateslt10um['latest']['time']))
+		{
+			$time = $particulateslt10um['latest']['time'];
+			$metadata = $particulateslt10um['metadata'];
+		}
+		
 		$nitrogendioxide = $this->measurement("nitrogendioxide");
 		$result['latest']['parts']['nitrogendioxide'] = $nitrogendioxide['latest']['data'];
 		if (isset($nitrogendioxide['latest']['time']))
@@ -89,14 +97,6 @@ Class airquality
 		{
 			$time = $particulateslt2_5um['latest']['time'];
 			$metadata = $particulateslt2_5um['metadata'];
-		}
-		
-		$particulateslt10um = $this->measurement("particulateslt10um");
-		$result['latest']['parts']['particulateslt10um'] = $particulateslt10um['latest']['data'];
-		if (isset($particulateslt10um['latest']['time']))
-		{
-			$time = $particulateslt10um['latest']['time'];
-			$metadata = $particulateslt10um['metadata'];
 		}
 		
 		$carbonmonoxide = $this->measurement("carbonmonoxide");
@@ -154,6 +154,7 @@ Class airquality
 			$result['latest']['FI'] = "hyvä";
 			$result['latest']['EN'] = "good";
 		}
+
 		
 		$result['latest']['time'] = $time;
 		$result['metadata'] = $metadata;
@@ -169,12 +170,17 @@ Class airquality
 	
 	public function scrapeMeasurement($type)
 	{
+//		echo "functionSCRAPEMEASUREMENT $type\n"; // debug
+
 		// Get page
 		$output = $this->fetchPageAsUTF8($type);
 		
 		// Scrape
 		$html = str_get_html($output['html']); 
 		$table = $html->find('table', 0);
+		
+//		echo "\nTYPE:" . $type . $html . "\n\n"; // debug; shows what the scraper sees
+		
 
 		foreach($table->find('tr') as $row)
 		{
@@ -238,7 +244,7 @@ Class airquality
 	{
 		// Form page URL
 		$pv = date("d.m.Y");
-		$urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&rs=" . $this->city . "&ss=" . $this->station . "&p=" . $type . "&pv=" . $pv . "&j=23&et=table&tj=3600&ls=suomi";
+		$urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&ss=" . $this->station . "&p=" . $type . "&pv=" . $pv . "&j=23&et=table&tj=3600&ls=suomi";
 //		echo $urlHome; exit(); // debug
 
 		// Data page URL
