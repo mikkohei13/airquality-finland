@@ -10,10 +10,16 @@ require_once "config.php";
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // Get data
 
-if ((int) $_GET['ss'] == $_GET['ss'])
+
+if (isset($_GET['ss']) && ((int) $_GET['ss'] == $_GET['ss']))
 {
 	$ss = $_GET['ss'];
 }
+else
+{
+	$ss = 564;
+}
+
 
 $url = $basePath . "?p=qualityIndex&ss=" . $ss;
 

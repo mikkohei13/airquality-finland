@@ -14,7 +14,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 <p>Näin saat ilmanlaadun mukaan vaihtuvan taustavärin älypuhelimeesi:</p>
 <ol>
-<li>Asenna jokin sovellus, joka näyttää verkkosivun taustakuvana, esim. XXX tai YYY</li>
+<li>Asenna jokin sovellus, joka näyttää verkkosivun taustakuvana, esim. Androidilla <a href="https://play.google.com/store/apps/details?id=com.yaji.weblivewallpaper">Web LiveWallpaper</a> tai <a href="https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper">WebLiveWallpaper</a> (<a href="https://github.com/mikkohei13/airquality-finland/blob/master/mobile.md">käyttöohjeita</a>)</li>
 <li>Valitse ao. luettelosta sopivin mittausasema</li>
 <li>Aseta sivu taustakuvaksi. Em. sovelluksissa tämä tapahtuu painamalla Menu > Share > sovellus</li>
 </ol>
