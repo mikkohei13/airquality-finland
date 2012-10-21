@@ -11,16 +11,18 @@ header('Content-Type: text/html; charset=utf-8');
 </head>
 <body>
 <p id="bread"><a href="http://www.biomi.org/">biomi.org</a> &raquo; <a href="http://www.biomi.org/internet/ilmanlaaturajapinta.html">Ilmanlaatu</a> &raquo; </p>
-<h1>Ilmanlaatutiedot kännykkään</h1>
+<h1>Ilmanlaatutiedot kännykän taustaväriksi</h1>
 
 <img src="ilmanlaatu-android-desire.jpg" alt="" id="mobilephone" />
 
 <p>Näin saat ilmanlaadun mukaan vaihtuvan taustavärin älypuhelimeesi:</p>
 <ol>
-<li>Asenna jokin sovellus, joka näyttää verkkosivun taustakuvana, esim. Androidilla <a href="https://play.google.com/store/apps/details?id=com.yaji.weblivewallpaper">Web LiveWallpaper</a> tai <a href="https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper">WebLiveWallpaper</a> (<a href="https://github.com/mikkohei13/airquality-finland/blob/master/mobile.md">käyttöohjeita</a>)</li>
-<li>Valitse ao. luettelosta sopivin mittausasema</li>
+<li>Asenna jokin sovellus, joka näyttää verkkosivun taustakuvana,<br /> esim. Androidilla <a href="https://play.google.com/store/apps/details?id=com.yaji.weblivewallpaper">Web LiveWallpaper</a> tai <a href="https://play.google.com/store/apps/details?id=com.dngames.websitelivewallpaper">WebLiveWallpaper</a> (<a href="https://github.com/mikkohei13/airquality-finland/blob/master/mobile.md">käyttöohjeita</a>)</li>
+<li>Valitse ao. luettelosta sopivin mittausasema (<a href="http://www.biomi.org/blogi/2012/10/ilmanlaatu-puhelin/">Miksi paikkaa ei valita automaattisesti?</a>)</li>
 <li>Aseta sivu taustakuvaksi. Em. sovelluksissa tämä tapahtuu painamalla Menu > Share > sovellus</li>
 </ol>
+
+
 
 <ul>
 <li><a href="../colour.php?ss=841">Espoo: Leppävaara 4</a></li>
