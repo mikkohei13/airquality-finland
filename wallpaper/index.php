@@ -10,7 +10,10 @@ header('Content-Type: text/html; charset=utf-8');
 	<link href="air.css" rel="stylesheet" />
 </head>
 <body>
+<p id="bread"><a href="http://www.biomi.org/">biomi.org</a> &raquo; <a href="http://www.biomi.org/internet/ilmanlaaturajapinta.html">Ilmanlaatu</a> &raquo; </p>
 <h1>Ilmanlaatutiedot kännykkään</h1>
+
+<img src="ilmanlaatu-android-desire.jpg" alt="" id="mobilephone" />
 
 <p>Näin saat ilmanlaadun mukaan vaihtuvan taustavärin älypuhelimeesi:</p>
 <ol>

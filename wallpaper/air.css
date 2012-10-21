@@ -1,0 +1,13 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+#bread {
+	font-size: 86%;
+	background-color: #b8cf8c;
+	padding: 0.3em;
+	margin: 0 0 1em 0;
+}
+
+#mobilephone {
+	float: right;
+}
