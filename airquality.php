@@ -192,7 +192,17 @@ Class airquality
 		$output = $this->fetchPageAsUTF8($type);
 		
 		// Scrape
-		$html = str_get_html($output['html']); 
+		$html = str_get_html($output['html']);
+		
+		if (! is_object($html))
+		{
+			// todo: move this elsewhere
+			$error['error'] = TRUE;
+			$error['message'] = "Ilmanlaatuportaali seems to be out of order.";
+			header('Content-Type: application/json; charset=utf-8');
+			exit(json_encode($error));
+		}
+		
 		$table = $html->find('table', 0);
 		
 //		echo "\nTYPE:" . $type . $html . "\n\n"; // debug; shows what the scraper sees
