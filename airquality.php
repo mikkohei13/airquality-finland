@@ -196,7 +196,7 @@ Class airquality
 		
 		if (! is_object($html))
 		{
-			// todo: move this elsewhere
+			// todo: move this elsewhere, so that this class returns error message, instead of pushing it to browser directly
 			$error['error'] = TRUE;
 			$error['message'] = "Ilmanlaatuportaali seems to be out of order.";
 			header('Content-Type: application/json; charset=utf-8');
