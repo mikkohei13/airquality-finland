@@ -13,8 +13,8 @@ Examples (more below)
 
 Requires [Simple HTML DOM Parser 1.5](http://simplehtmldom.sourceforge.net); set path to this in config.php.
 
-- Background info (in Finnish): LINK LATER
-- API as a service (in Finnish): LINK LATER
+- API as a service (in Finnish): http://www.biomi.org/internet/ilmanlaaturajapinta.html
+- Background info (in Finnish): http://www.biomi.org/blogi/2012/10/ilmanlaatu/
 - Setting data wallpaper colour: see mobile.md
 
 ### Shortcomings (to be fixed later)
