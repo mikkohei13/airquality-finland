@@ -230,6 +230,23 @@ Class airquality
 			// Station doesn't have measurements for today
 			return FALSE;
 		}
+		else
+		{
+			// All measurements are missing
+			$temp = FALSE;
+			foreach ($data as $key => $value)
+			{
+				if (! empty($value))
+				{
+					$temp = TRUE;
+					break;
+				}
+			}
+			if (! $temp)
+			{
+				return FALSE;
+			}
+		}
 
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
 		$result['metadata']['sourceURL'] = $output['url'];
