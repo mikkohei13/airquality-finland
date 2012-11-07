@@ -35,7 +35,7 @@ echo "DEV:\n";
 print_r ($devData);
 
 
-
+// firegun at terra dot com dot br / http://www.php.net/manual/en/function.array-diff.php#91756
 function arrayRecursiveDiff($aArray1, $aArray2) {
   $aReturn = array();
 
