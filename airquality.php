@@ -2,10 +2,13 @@
 
 Class airquality
 {
-	var $station = FALSE;
+	var $station = NULL;
+	var $measurement = NULL;
+	var $validMeasurements = Array();
+
 	var $message = "";
 	var $messageStation = "";
-	var $validMeasurements;
+
 	
 	// ------------------------------------------------------------------------
 	// Constructor
@@ -13,9 +16,14 @@ Class airquality
 	
 	public function __construct($station, $measurement)
 	{
-		$this->validMeasurements['ozone'] = TRUE;
 		$this->validMeasurements['nitrogendioxide'] = TRUE; 
-		
+		$this->validMeasurements['particulateslt10um'] = TRUE; 
+		$this->validMeasurements['particulateslt2_5um'] = TRUE; 
+		$this->validMeasurements['carbonmonoxide'] = TRUE; 
+		$this->validMeasurements['ozone'] = TRUE; 
+		$this->validMeasurements['sulphurdioxide'] = TRUE; 
+		$this->validMeasurements['odorsulphurcompounds'] = TRUE; 
+		$this->validMeasurements['qualityIndex '] = TRUE; 
 		
 		// Validate input
 		if ( !( is_numeric($station) && $station==(int)$station ) )
@@ -27,11 +35,18 @@ Class airquality
 		{
 			throw new Exception("p (measurement) is invalid");
 		}
-		echo "SUCCESS!";
-//		$scraper = new scraper($station, $measurement);
-	}
-	
 		
+		$this->station = $station;
+		$this->measurement = $measurement;
+		
+		// Scraping
+		$result = $this->evaluateMeasurement();
+		$this->debugThisArray($result);
+	}
+		
+	// ------------------------------------------------------------------------
+	// 
+	
 	public function validMeasurement($measurement)
 	{
 		if ($this->validMeasurements[$measurement])
@@ -46,62 +61,24 @@ Class airquality
 	
 	// ------------------------------------------------------------------------
 	// Returns measurement or error message as an array
-	// Checks that type is valid
 	
-	public function evaluateMeasurement($type)
+	public function evaluateMeasurement()
 	{
-		try 
+		if ("qualityIndex" == $this->measurement)
 		{
-			
+			$this->evaluateQualityIndex($type);
 		}
-		catch (Exception $e)
-		{
-			throw $e;
-		}
-//		echo "functionMEASUREMENT $type\n"; // debug
-	
-		// If error with station
-		if ("" != $this->messageStation)
-		{
-			$errorArray['error'] = TRUE;
-			$errorArray['message'] = $this->message;
-			return $errorArray;
-		}
-		// If air quality index
-		elseif ($type == "qualityIndex")
-		{
-			$dataArray = $this->qualityIndex($type);
-			return $dataArray;
-		}
-		// If raw measurement
-		elseif ($type == "nitrogendioxide" || $type == "particulateslt10um" || $type == "particulateslt2.5um" || $type == "carbonmonoxide" || $type == "ozone" || $type == "sulphurdioxide" || $type == "odorsulphurcompounds")
-		{
-			$dataArray = $this->scrapeMeasurement($type);
-			
-			// If this data is missing
-			if (FALSE === $dataArray)
-			{
-				$this->message .= "this station doesn't have this measurement (X)<br />";
-				$errorArray['error'] = TRUE;
-				$errorArray['message'] = $this->message;
-				return $errorArray;
-			}
-			return $dataArray;
-		}
-		// If error with measurement name
 		else
 		{
-			$this->message .= "unsupported p (measurement)<br />";
-			$errorArray['error'] = TRUE;
-			$errorArray['message'] = $this->message;
-			return $errorArray;
+			$scraper = new scraper($this->station, $this->measurement);
+			return $scraper->returnResult();
 		}
 	}
 	
 	// ------------------------------------------------------------------------
 	// Calculates air quality index
 	
-	public function qualityIndex()
+	public function evaluateQualityIndex()
 	{
 		// Goes through all measurements, tries to pick the time & metadata from each, since we don't know which measurement is available. This will lead to the sourceURL will be from the last measurement. 
 		
@@ -211,265 +188,12 @@ Class airquality
 	}
 
 	
-	// ------------------------------------------------------------------------
-	// Scrapes a measurement
-	
-	public function scrapeMeasurement($type)
-	{
-//		echo "functionSCRAPEMEASUREMENT $type\n"; // debug
-
-		// Get page
-		$output = $this->fetchPageAsUTF8($type);
-		
-		// Scrape
-		$html = str_get_html($output['html']);
-		
-		if (! is_object($html))
-		{
-			// todo: move this elsewhere, so that this class returns error message, instead of pushing it to browser directly
-			$error['error'] = TRUE;
-			$error['message'] = "Ilmanlaatuportaali seems to be out of order.";
-			header('Content-Type: application/json; charset=utf-8');
-			exit(json_encode($error));
-		}
-		
-		$table = $html->find('table', 0);
-		
-//		echo "\nTYPE:" . $type . $html . "\n\n"; // debug; shows what the scraper sees
-		
-
-		foreach($table->find('tr') as $row)
-		{
-			$data[$row->find('td', 0)->plaintext] = $row->find('td', 1)->plaintext;
-		}
-		
-		// Generate array
-		// metadata fields
-		$result['error'] = FALSE;
-		
-		$result['metadata']['station'] = $data['Tunti'];
-		unset($data['Tunti']);
-		
-		if (NULL == $result['metadata']['station'])
-		{
-			// Station doesn't have this measurement
-			return FALSE;
-		}
-		elseif (empty($data))
-		{
-			// Station doesn't have measurements for today
-			return FALSE;
-		}
-		else
-		{
-			// All measurements are missing
-			$temp = FALSE;
-			foreach ($data as $key => $value)
-			{
-				if (! empty($value))
-				{
-					$temp = TRUE;
-					break;
-				}
-			}
-			if (! $temp)
-			{
-				return FALSE;
-			}
-		}
-
-		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
-		$result['metadata']['sourceURL'] = $output['url'];
-		$result['metadata']['status'] = "unconfirmed measurements";
-		$result['metadata']['measurement'] = $type;
-
-		// Save all data as todays data
-		$result['today'] = $data;
 
 
-//		$this->debugThisArray($data); // debug
 
-		// Takes last element of array
-		end($data);
-		while ("" == current($data))
-		{
-			prev($data);
-		}
-		
-		$result['latest']['data'] = current($data);
-		$result['latest']['time'] = key($data);
-		
-//		print_r ($result); exit(); // debug
-
-
-		// Convert scraped text to numbers
-		$result = $this->convertScrapedToFloat($result);
-//		print_r ($result); exit(); // debug
-		
-		$result = $this->addIndex($result);
-
-		return $result;
-	}
-
-	// ------------------------------------------------------------------------
-	// Fetches a data page from Ilmanlaatuportaali and returns it as an UTF-8 string
-	
-	public function fetchPageAsUTF8($type)
-	{
-		// Form page URL
-		$pv = date("d.m.Y");
-		$urlHome = "http://www.ilmanlaatu.fi/ilmanyt/nyt/ilmanyt.php?as=Suomi&ss=" . $this->station . "&p=" . $type . "&pv=" . $pv . "&j=23&et=table&tj=3600&ls=suomi";
-//		echo $urlHome; exit(); // debug
-
-		// Data page URL
-		$time = date("YmdH");
-		$url = "http://www.ilmanlaatu.fi/php/table/observationsInTable.php?step=3600&today=1&timesequence=23&time=" . $time . "&station=" . $this->station . "";
-
-		// Create a cookie file
-		$ckfile = tempnam ("/tmp", "CURLCOOKIE");
-		
-		// Visit form page, set a cookie
-		$ch = curl_init ($urlHome);
-		curl_setopt ($ch, CURLOPT_COOKIEJAR, $ckfile); 
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec ($ch);
-		
-		// Scrape data page with the cookie
-		$ch = curl_init ($url);
-		curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile); 
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec ($ch);
-
-		$result['html'] = utf8_encode($output);
-		$result['url'] = $urlHome;
-		
-		return $result;
-	}
-
-
-	// ------------------------------------------------------------------------
-	// Adds index to a measurement
-	
-	public function addIndex($array)
-	{
-		// limts as micrograms/m3
-	
-		$indexMaxLimits['nitrogendioxide'][1] = 40;
-		$indexMaxLimits['nitrogendioxide'][2] = 70;
-		$indexMaxLimits['nitrogendioxide'][3] = 150;
-		$indexMaxLimits['nitrogendioxide'][4] = 200;
-	
-		$indexMaxLimits['particulateslt2_5um'][1] = 10;
-		$indexMaxLimits['particulateslt2_5um'][2] = 25;
-		$indexMaxLimits['particulateslt2_5um'][3] = 50;
-		$indexMaxLimits['particulateslt2_5um'][4] = 75;
-	
-		$indexMaxLimits['particulateslt10um'][1] = 20;
-		$indexMaxLimits['particulateslt10um'][2] = 50;
-		$indexMaxLimits['particulateslt10um'][3] = 100;
-		$indexMaxLimits['particulateslt10um'][4] = 200;
-	
-		$indexMaxLimits['carbonmonoxide'][1] = 4000;
-		$indexMaxLimits['carbonmonoxide'][2] = 8000;
-		$indexMaxLimits['carbonmonoxide'][3] = 20000;
-		$indexMaxLimits['carbonmonoxide'][4] = 30000;
-	
-		$indexMaxLimits['ozone'][1] = 60;
-		$indexMaxLimits['ozone'][2] = 100;
-		$indexMaxLimits['ozone'][3] = 140;
-		$indexMaxLimits['ozone'][4] = 180;
-		
-		$indexMaxLimits['sulphurdioxide'][1] = 20;
-		$indexMaxLimits['sulphurdioxide'][2] = 80;
-		$indexMaxLimits['sulphurdioxide'][3] = 250;
-		$indexMaxLimits['sulphurdioxide'][4] = 350;		
-		
-		$indexMaxLimits['odorsulphurcompounds'][1] = 5;
-		$indexMaxLimits['odorsulphurcompounds'][2] = 10;
-		$indexMaxLimits['odorsulphurcompounds'][3] = 20;
-		$indexMaxLimits['odorsulphurcompounds'][4] = 50;
-		
-		
-		$data = $array['latest']['data'];
-		$measurement = $array['metadata']['measurement'];
-		
-		if ("qualityIndex" == $measurement)
-		{
-			// TODO: Move index calculations here
-		}
-		else
-		{
-			if ($data > $indexMaxLimits[$measurement][4])
-			{
-				$index = 5;
-				$FI = "erittäin huono";
-				$EN = "very bad";
-			}
-			elseif ($data > $indexMaxLimits[$measurement][3])
-			{
-				$index = 4;
-				$FI = "huono";
-				$EN = "bad";
-			}
-			elseif ($data > $indexMaxLimits[$measurement][2])
-			{
-				$index = 3;
-				$FI = "välttävä";
-				$EN = "mediocre";
-			}
-			elseif ($data > $indexMaxLimits[$measurement][1])
-			{
-				$index = 2;
-				$FI = "tyydyttävä";
-				$EN = "satisfactory";
-			}
-			else
-			{
-				$index = 1;
-				$FI = "hyvä";
-				$EN = "good";
-			}
-		}
-	
-		$array['latest']['index'] = $index;
-		$array['latest']['FI'] = $FI;
-		$array['latest']['EN'] = $EN;
-	
-		return $array;
-	}
 	
 	
-	// ------------------------------------------------------------------------
-	// Converts scraped stings to float numbers
-	
-	public function convertScrapedToFloat($array)
-	{
-//		echo "<pre>"; print_r ($array); exit();
-		
-		if (! isset($array['latest']['data']))
-		{
-			$array['latest']['data'] = NULL;
-		}
-		else
-		{
-			$array['latest']['data'] = (float) $array['latest']['data'];
-		}
-		
-		foreach ($array['today'] as $key => $value)
-		{
-			if ("" == $value)
-			{
-				$array['today'][$key] = NULL;
-			}
-			else
-			{
-				$array['today'][$key] = (float) $value;
-			}
-		}
-		
-		return $array;
-	}
-	
+
 	// ------------------------------------------------------------------------
 	// Debug: prints array as JSON and exits
 	
