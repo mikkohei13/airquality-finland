@@ -91,15 +91,15 @@ Class scraper
 		// Metadata
 		$result['metadata']['station'] = $data['Tunti'];
 		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
-		$result['metadata']['status'] = "unconfirmed measurements";
 		$result['metadata']['sourceURL'] = $this->url;
+		$result['metadata']['status'] = "unconfirmed measurements";
 		$result['metadata']['measurement'] = $this->measurement;
 		
 		unset($data['Tunti']);
 		
 		if (NULL == $result['metadata']['station'])
 		{
-			throw new Exception("Station doesn't have this measurement.");
+			throw new Exception("Station doesn't have this measurement " . $this->measurement);
 		}
 		elseif ( empty($data ))
 		{

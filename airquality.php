@@ -8,24 +8,19 @@ Class airquality
 	
 	var $result = Array();
 
-	var $message = "";
-	var $messageStation = "";
-
-	
 	// ------------------------------------------------------------------------
 	// Constructor
 	// Checks that station is number
 	
 	public function __construct($station, $measurement)
 	{
-		$this->validMeasurements['nitrogendioxide'] = TRUE; 
 		$this->validMeasurements['particulateslt10um'] = TRUE; 
-		$this->validMeasurements['particulateslt2_5um'] = TRUE; 
+		$this->validMeasurements['nitrogendioxide'] = TRUE; 
+		$this->validMeasurements['particulateslt2.5um'] = TRUE; 
 		$this->validMeasurements['carbonmonoxide'] = TRUE; 
 		$this->validMeasurements['ozone'] = TRUE; 
 		$this->validMeasurements['sulphurdioxide'] = TRUE; 
 		$this->validMeasurements['odorsulphurcompounds'] = TRUE; 
-		$this->validMeasurements['qualityIndex '] = TRUE; 
 		
 		// Validate input
 		if ( !( is_numeric($station) && $station==(int)$station ) )
@@ -50,7 +45,7 @@ Class airquality
 	
 	public function validMeasurement($measurement)
 	{
-		if ($this->validMeasurements[$measurement])
+		if ($this->validMeasurements[$measurement] || "qualityIndex" == $measurement)
 		{
 			return TRUE;
 		}
@@ -61,7 +56,7 @@ Class airquality
 	}
 	
 	// ------------------------------------------------------------------------
-	// Returns measurement or error message as an array
+	// 
 	
 	public function evaluateMeasurement()
 	{
@@ -73,9 +68,10 @@ Class airquality
 		{
 			$scraper = new scraper($this->station, $this->measurement);
 			$this->result = $scraper->returnResult();
+			
+			$this->calculateIndex();
 		}
 		
-		$this->calculateIndex();
 	}
 	
 	// ------------------------------------------------------------------------
@@ -85,114 +81,68 @@ Class airquality
 	{
 		// Goes through all measurements, tries to pick the time & metadata from each, since we don't know which measurement is available. This will lead to the sourceURL will be from the last measurement. 
 		
-		$particulateslt10um = $this->measurement("particulateslt10um");
-		$result['latest']['parts']['particulateslt10um'] = $particulateslt10um['latest']['data'];
-		if (isset($particulateslt10um['latest']['time']))
+		foreach ($this->validMeasurements as $measurementName => $temp)
 		{
-			$time = $particulateslt10um['latest']['time'];
-			$metadata = $particulateslt10um['metadata'];
+			try
+			{
+				$scraper = new scraper($this->station, $measurementName);
+				$partsTemp = $scraper->returnResult();
+//				print_r ($partsTemp); exit("DEBUG");
+				
+				$this->result['latest']['parts'][$measurementName] = $partsTemp['latest']['data'];
+
+				$this->result['latest']['time'] = $partsTemp['latest']['time'];
+				$this->result['metadata'] = $partsTemp['metadata'];
+
+			}
+			catch (Exception $e)
+			{
+				$this->result['latest']['parts'][$measurementName] = NULL;
+			}
 		}
 		
-		$nitrogendioxide = $this->measurement("nitrogendioxide");
-		$result['latest']['parts']['nitrogendioxide'] = $nitrogendioxide['latest']['data'];
-		if (isset($nitrogendioxide['latest']['time']))
-		{
-			$time = $nitrogendioxide['latest']['time'];
-			$metadata = $nitrogendioxide['metadata'];
-		}
-		
-		$particulateslt2_5um = $this->measurement("particulateslt2.5um");
-		$result['latest']['parts']['particulateslt2.5um'] = $particulateslt2_5um['latest']['data'];
-		if (isset($particulateslt2_5um['latest']['time']))
-		{
-			$time = $particulateslt2_5um['latest']['time'];
-			$metadata = $particulateslt2_5um['metadata'];
-		}
-		
-		$carbonmonoxide = $this->measurement("carbonmonoxide");
-		$result['latest']['parts']['carbonmonoxide'] = $carbonmonoxide['latest']['data'];		
-		if (isset($carbonmonoxide['latest']['time']))
-		{
-			$time = $carbonmonoxide['latest']['time'];
-			$metadata = $carbonmonoxide['metadata'];
-		}
-		
-		$ozone = $this->measurement("ozone");
-		$result['latest']['parts']['ozone'] = $ozone['latest']['data'];
-		if (isset($ozone['latest']['time']))
-		{
-			$time = $ozone['latest']['time'];
-			$metadata = $ozone['metadata'];
-		}
-		
-		$sulphurdioxide = $this->measurement("sulphurdioxide");
-		$result['latest']['parts']['sulphurdioxide'] = $sulphurdioxide['latest']['data'];
-		if (isset($sulphurdioxide['latest']['time']))
-		{
-			$time = $sulphurdioxide['latest']['time'];
-			$metadata = $sulphurdioxide['metadata'];
-		}
-		
-		$odorsulphurcompounds = $this->measurement("odorsulphurcompounds");
-		$result['latest']['parts']['odorsulphurcompounds'] = $odorsulphurcompounds['latest']['data'];
-		if (isset($odorsulphurcompounds['latest']['time']))
-		{
-			$time = $odorsulphurcompounds['latest']['time'];
-			$metadata = $odorsulphurcompounds['metadata'];
-		}
+		$this->result['metadata']['measurement'] = "qualityIndex";
 		
 		// Values from http://www.hsy.fi/seututieto/ilmanlaatu/tiedotus/indeksi/Sivut/default.aspx
 		// All units are micrograms/m3
 		
-		if (NULL ===$nitrogendioxide['latest']['data'] && NULL ===$particulateslt2_5um['latest']['data'] && NULL ===$particulateslt10um['latest']['data'] && NULL ===$carbonmonoxide['latest']['data'] && NULL ===$ozone['latest']['data'] && NULL ===$sulphurdioxide['latest']['data'] && NULL ===$odorsulphurcompounds['latest']['data'])
+		if (NULL === $this->result['latest']['parts']['nitrogendioxide'] && NULL === $this->result['latest']['parts']['particulateslt2.5um'] && NULL === $this->result['latest']['parts']['particulateslt10um'] && NULL === $this->result['latest']['parts']['carbonmonoxide'] && NULL === $this->result['latest']['parts']['ozone'] && NULL === $this->result['latest']['parts']['sulphurdioxide'] && NULL === $this->result['latest']['parts']['odorsulphurcompounds'])
 		{
-			$result['error'] = TRUE;
-			$result['message'] = "this station doesn't yet have an air quality index for today<br />";
-			return $result;
+			throw new Exception("This station doesn't yet have an air quality index for today.");
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 200 || $particulateslt2_5um['latest']['data'] > 75 || $particulateslt10um['latest']['data'] > 200 || $carbonmonoxide['latest']['data'] > 30000 || $ozone['latest']['data'] > 180 || $sulphurdioxide['latest']['data'] > 350 || $odorsulphurcompounds['latest']['data'] > 50)
+		elseif ($this->result['latest']['parts']['nitrogendioxide'] > 200 || $this->result['latest']['parts']['particulateslt2.5um'] > 75 || $this->result['latest']['parts']['particulateslt10um'] > 200 || $this->result['latest']['parts']['carbonmonoxide'] > 30000 || $this->result['latest']['parts']['ozone'] > 180 || $this->result['latest']['parts']['sulphurdioxide'] > 350 || $this->result['latest']['parts']['odorsulphurcompounds'] > 50)
 		{
-			$result['latest']['index'] = 5;
-			$result['latest']['FI'] = "erittäin huono";
-			$result['latest']['EN'] = "very bad";
+			$this->result['latest']['index'] = 5;
+			$this->result['latest']['FI'] = "erittäin huono";
+			$this->result['latest']['EN'] = "very bad";
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 150 || $particulateslt2_5um['latest']['data'] > 50 || $particulateslt10um['latest']['data'] > 100 || $carbonmonoxide['latest']['data'] > 20000 || $ozone['latest']['data'] > 140 || $sulphurdioxide['latest']['data'] > 250 || $odorsulphurcompounds['latest']['data'] > 20)
+		elseif ($this->result['latest']['parts']['nitrogendioxide'] > 150 || $this->result['latest']['parts']['particulateslt2.5um'] > 50 || $this->result['latest']['parts']['particulateslt10um'] > 100 || $this->result['latest']['parts']['carbonmonoxide'] > 20000 || $this->result['latest']['parts']['ozone'] > 140 || $this->result['latest']['parts']['sulphurdioxide'] > 250 || $this->result['latest']['parts']['odorsulphurcompounds'] > 20)
 		{
-			$result['latest']['index'] = 4;
-			$result['latest']['FI'] = "huono";
-			$result['latest']['EN'] = "bad";
+			$this->result['latest']['index'] = 4;
+			$this->result['latest']['FI'] = "huono";
+			$this->result['latest']['EN'] = "bad";
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 70 || $particulateslt2_5um['latest']['data'] > 25 || $particulateslt10um['latest']['data'] > 50 || $carbonmonoxide['latest']['data'] > 8000 || $ozone['latest']['data'] > 100 || $sulphurdioxide['latest']['data'] > 80 || $odorsulphurcompounds['latest']['data'] > 10)
+		elseif ($this->result['latest']['parts']['nitrogendioxide'] > 70 || $this->result['latest']['parts']['particulateslt2.5um'] > 25 || $this->result['latest']['parts']['particulateslt10um'] > 50 || $this->result['latest']['parts']['carbonmonoxide'] > 8000 || $this->result['latest']['parts']['ozone'] > 100 || $this->result['latest']['parts']['sulphurdioxide'] > 80 || $this->result['latest']['parts']['odorsulphurcompounds'] > 10)
 		{
-			$result['latest']['index'] = 3;
-			$result['latest']['FI'] = "välttävä";
-			$result['latest']['EN'] = "mediocre";
+			$this->result['latest']['index'] = 3;
+			$this->result['latest']['FI'] = "välttävä";
+			$this->result['latest']['EN'] = "mediocre";
 		}
-		elseif ($nitrogendioxide['latest']['data'] > 40 || $particulateslt2_5um['latest']['data'] > 10 || $particulateslt10um['latest']['data'] > 20 || $carbonmonoxide['latest']['data'] > 4000 || $ozone['latest']['data'] > 60 || $sulphurdioxide['latest']['data'] > 20 || $odorsulphurcompounds['latest']['data'] > 5)
+		elseif ($this->result['latest']['parts']['nitrogendioxide'] > 40 || $this->result['latest']['parts']['particulateslt2.5um'] > 10 || $this->result['latest']['parts']['particulateslt10um'] > 20 || $this->result['latest']['parts']['carbonmonoxide'] > 4000 || $this->result['latest']['parts']['ozone'] > 60 || $this->result['latest']['parts']['sulphurdioxide'] > 20 || $this->result['latest']['parts']['odorsulphurcompounds'] > 5)
 		{
-			$result['latest']['index'] = 2;
-			$result['latest']['FI'] = "tyydyttävä";
-			$result['latest']['EN'] = "satisfactory";
+			$this->result['latest']['index'] = 2;
+			$this->result['latest']['FI'] = "tyydyttävä";
+			$this->result['latest']['EN'] = "satisfactory";
 		}
 		else 
 		{
-			$result['latest']['index'] = 1;
-			$result['latest']['FI'] = "hyvä";
-			$result['latest']['EN'] = "good";
+			$this->result['latest']['index'] = 1;
+			$this->result['latest']['FI'] = "hyvä";
+			$this->result['latest']['EN'] = "good";
 		}
-
 		
-		$result['latest']['time'] = $time;
-		$result['metadata'] = $metadata;
-		$result['metadata']['measurement'] = "qualityIndex";
-		$result['error'] = FALSE;
-		
-		return $result;
+//		$this->debugThisArray($this->result);
 	}
-
-	
-
-
 
 	// ------------------------------------------------------------------------
 	// Adds index to a measurement
@@ -206,10 +156,10 @@ Class airquality
 		$indexMaxLimits['nitrogendioxide'][3] = 150;
 		$indexMaxLimits['nitrogendioxide'][4] = 200;
 	
-		$indexMaxLimits['particulateslt2_5um'][1] = 10;
-		$indexMaxLimits['particulateslt2_5um'][2] = 25;
-		$indexMaxLimits['particulateslt2_5um'][3] = 50;
-		$indexMaxLimits['particulateslt2_5um'][4] = 75;
+		$indexMaxLimits['particulateslt2.5um'][1] = 10;
+		$indexMaxLimits['particulateslt2.5um'][2] = 25;
+		$indexMaxLimits['particulateslt2.5um'][3] = 50;
+		$indexMaxLimits['particulateslt2.5um'][4] = 75;
 	
 		$indexMaxLimits['particulateslt10um'][1] = 20;
 		$indexMaxLimits['particulateslt10um'][2] = 50;
@@ -307,7 +257,7 @@ Class airquality
 		
 		/*
 		$testData['latest']['parts']['nitrogendioxide'] = 13.4;
-		$testData['latest']['parts']['particulateslt2_5um'] = 11.6;
+		$testData['latest']['parts']['particulateslt2.5um'] = 11.6;
 		$testData['latest']['parts']['particulateslt10um'] = 18.1;
 		$testData['latest']['parts']['carbonmonoxide'] = 183;
 		$testData['latest']['parts']['ozone'] = 39;
