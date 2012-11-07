@@ -5,20 +5,42 @@ Class airquality
 	var $station = FALSE;
 	var $message = "";
 	var $messageStation = "";
+	var $validMeasurements;
 	
 	// ------------------------------------------------------------------------
 	// Constructor
 	// Checks that station is number
 	
-	public function __construct($station)
+	public function __construct($station, $measurement)
 	{
-		if (is_numeric($station) && $station == (int) $station)
+		$this->validMeasurements['ozone'] = TRUE;
+		$this->validMeasurements['nitrogendioxide'] = TRUE; 
+		
+		
+		// Validate input
+		if ( !( is_numeric($station) && $station==(int)$station ) )
 		{
-			$this->station = $station;
+			throw new Exception("ss (station) must be a number");
+		}
+		
+		if ( !$this->validMeasurement($measurement) )
+		{
+			throw new Exception("p (measurement) is invalid");
+		}
+		echo "SUCCESS!";
+//		$scraper = new scraper($station, $measurement);
+	}
+	
+		
+	public function validMeasurement($measurement)
+	{
+		if ($this->validMeasurements[$measurement])
+		{
+			return TRUE;
 		}
 		else
 		{
-			$this->messageStation .= "ss (station) must be a number";
+			return FALSE;
 		}
 	}
 	
@@ -26,8 +48,16 @@ Class airquality
 	// Returns measurement or error message as an array
 	// Checks that type is valid
 	
-	public function measurement($type)
+	public function evaluateMeasurement($type)
 	{
+		try 
+		{
+			
+		}
+		catch (Exception $e)
+		{
+			throw $e;
+		}
 //		echo "functionMEASUREMENT $type\n"; // debug
 	
 		// If error with station
