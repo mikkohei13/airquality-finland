@@ -132,7 +132,7 @@ Class scraper
 		$result['today'] = $data;
 
 
-//		$this->debugThisArray($data); // debug
+//		print_r ($data); exit(); // debug
 
 		// Takes last element of array
 		end($data);
@@ -151,12 +151,14 @@ Class scraper
 		$result = $this->convertScrapedToFloat($result);
 //		print_r ($result); exit(); // debug
 		
-		$result = $this->addIndex($result);
+//		$result = $this->addIndex($result);
 
+//		print_r ($result); exit(); // debug
 		
 		
 		// ABBA: tämä alunperin kutsuvassa funktiossa
 		// If this data is missing
+		/*
 			if (FALSE === $dataArray)
 			{
 				$this->message .= "this station doesn't have this measurement (X)<br />";
@@ -164,13 +166,8 @@ Class scraper
 				$errorArray['message'] = $this->message;
 				return $errorArray;
 			}
+		*/
 
-		
-		
-		
-		
-		
-		
 		$this->result = $result;
 	}
 	
@@ -206,100 +203,9 @@ Class scraper
 	}
 	
 	// ------------------------------------------------------------------------
-	// Adds index to a measurement
-	
-	public function addIndex($array)
-	{
-		// limts as micrograms/m3
-	
-		$indexMaxLimits['nitrogendioxide'][1] = 40;
-		$indexMaxLimits['nitrogendioxide'][2] = 70;
-		$indexMaxLimits['nitrogendioxide'][3] = 150;
-		$indexMaxLimits['nitrogendioxide'][4] = 200;
-	
-		$indexMaxLimits['particulateslt2_5um'][1] = 10;
-		$indexMaxLimits['particulateslt2_5um'][2] = 25;
-		$indexMaxLimits['particulateslt2_5um'][3] = 50;
-		$indexMaxLimits['particulateslt2_5um'][4] = 75;
-	
-		$indexMaxLimits['particulateslt10um'][1] = 20;
-		$indexMaxLimits['particulateslt10um'][2] = 50;
-		$indexMaxLimits['particulateslt10um'][3] = 100;
-		$indexMaxLimits['particulateslt10um'][4] = 200;
-	
-		$indexMaxLimits['carbonmonoxide'][1] = 4000;
-		$indexMaxLimits['carbonmonoxide'][2] = 8000;
-		$indexMaxLimits['carbonmonoxide'][3] = 20000;
-		$indexMaxLimits['carbonmonoxide'][4] = 30000;
-	
-		$indexMaxLimits['ozone'][1] = 60;
-		$indexMaxLimits['ozone'][2] = 100;
-		$indexMaxLimits['ozone'][3] = 140;
-		$indexMaxLimits['ozone'][4] = 180;
-		
-		$indexMaxLimits['sulphurdioxide'][1] = 20;
-		$indexMaxLimits['sulphurdioxide'][2] = 80;
-		$indexMaxLimits['sulphurdioxide'][3] = 250;
-		$indexMaxLimits['sulphurdioxide'][4] = 350;		
-		
-		$indexMaxLimits['odorsulphurcompounds'][1] = 5;
-		$indexMaxLimits['odorsulphurcompounds'][2] = 10;
-		$indexMaxLimits['odorsulphurcompounds'][3] = 20;
-		$indexMaxLimits['odorsulphurcompounds'][4] = 50;
-		
-		
-		$data = $array['latest']['data'];
-		$measurement = $array['metadata']['measurement'];
-		
-		if ("qualityIndex" == $measurement)
-		{
-			// TODO: Move index calculations here
-		}
-		else
-		{
-			if ($data > $indexMaxLimits[$measurement][4])
-			{
-				$index = 5;
-				$FI = "erittäin huono";
-				$EN = "very bad";
-			}
-			elseif ($data > $indexMaxLimits[$measurement][3])
-			{
-				$index = 4;
-				$FI = "huono";
-				$EN = "bad";
-			}
-			elseif ($data > $indexMaxLimits[$measurement][2])
-			{
-				$index = 3;
-				$FI = "välttävä";
-				$EN = "mediocre";
-			}
-			elseif ($data > $indexMaxLimits[$measurement][1])
-			{
-				$index = 2;
-				$FI = "tyydyttävä";
-				$EN = "satisfactory";
-			}
-			else
-			{
-				$index = 1;
-				$FI = "hyvä";
-				$EN = "good";
-			}
-		}
-	
-		$array['latest']['index'] = $index;
-		$array['latest']['FI'] = $FI;
-		$array['latest']['EN'] = $EN;
-	
-		return $array;
-	}
-	
-	// ------------------------------------------------------------------------
 	public function returnResult()
 	{
-		return $this-result;
+		return $this->result;
 	}
 
 

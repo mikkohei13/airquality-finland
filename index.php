@@ -9,7 +9,7 @@ require_once "scraper.php";
 try
 {
 	$airquality = new airquality($_GET["ss"], $_GET["p"]);
-//	$result = $airquality->evaluateMeasurement();
+	$result = $airquality->returnResultArray();
 }
 catch (Exception $e)
 {
