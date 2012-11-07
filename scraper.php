@@ -6,6 +6,7 @@ Class scraper
 	var $measurement = NULL;
 	
 	var $result = Array();
+	var $url = NULL;
 
 
 	// ------------------------------------------------------------------------
@@ -18,12 +19,9 @@ Class scraper
 	{
 		$this->station = $station;
 		$this->measurement = $measurement;
-
-		// Get page
-		$output = $this->fetchPageAsUTF8();
 		
-		// Scrape
-		$html = str_get_html($output['html']);
+		// Get html
+		$html = str_get_html($this->fetchPageAsUTF8());
 		
 		if ( !is_object($html) )
 		{
@@ -73,16 +71,16 @@ Class scraper
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 		$output = curl_exec ($ch);
 
-		$result['html'] = utf8_encode($output);
-		$result['url'] = $urlHome;
-		
-		return $result;
+		$this->url = $urlHome;
+		return utf8_encode($output);
 	}
 
 	// ------------------------------------------------------------------------
 	//
 	public function scrapeDOMobject($html)
 	{
+//		print_r ($html); exit("??");
+	
 		$table = $html->find('table', 0);
 		
 		foreach($table->find('tr') as $row)
@@ -90,11 +88,13 @@ Class scraper
 			$data[$row->find('td', 0)->plaintext] = $row->find('td', 1)->plaintext;
 		}
 		
-		// Generate array
-		// metadata fields
-		
-		
+		// Metadata
 		$result['metadata']['station'] = $data['Tunti'];
+		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
+		$result['metadata']['status'] = "unconfirmed measurements";
+		$result['metadata']['sourceURL'] = $this->url;
+		$result['metadata']['measurement'] = $this->measurement;
+		
 		unset($data['Tunti']);
 		
 		if (NULL == $result['metadata']['station'])
@@ -122,11 +122,6 @@ Class scraper
 				throw new Exception("All measurements are missing for today.");
 			}
 		}
-
-		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
-		$result['metadata']['sourceURL'] = $output['url'];
-		$result['metadata']['status'] = "unconfirmed measurements";
-		$result['metadata']['measurement'] = $this->measurement;
 
 		// Save all data as todays data
 		$result['today'] = $data;
@@ -167,6 +162,7 @@ Class scraper
 				return $errorArray;
 			}
 		*/
+
 
 		$this->result = $result;
 	}

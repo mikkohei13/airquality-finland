@@ -377,6 +377,7 @@ Class airquality
 	
 	public function returnResultArray()
 	{
+		$this->result['error'] = FALSE;
 		return $this->result;
 	}
 

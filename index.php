@@ -13,7 +13,8 @@ try
 }
 catch (Exception $e)
 {
-	exit("CAUGHT EXCEPTION " . $e->getMessage());
+	$result['error'] = TRUE;
+	$result['message'] = $e->getMessage();
 }
 
 if (1 == $_GET['callback'])

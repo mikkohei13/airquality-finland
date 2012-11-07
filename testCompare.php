@@ -2,7 +2,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
-$parameters = "?p=nitrogendioxide&ss=564";
+$parameters = "?p=ozone&ss=564";
 
 $productionJSON = file_get_contents("http://biomi.kapsi.fi/tools/airquality/" . $parameters);
 $productionData = json_decode($productionJSON, TRUE);
