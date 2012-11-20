@@ -172,24 +172,9 @@ If you set callback=1 in the GET parameters, the data will be wrapped in airQual
 Todo/Plans
 ----------
 
--"Mobile app"
---Station coordinates
---Web service to return nearest station (number) based on given coordinates
-
-- Data as an object (instead of an array)
--- Move index calculation to its own method
--- Handle null data (at midnight)
-- City validation
-- Station validation: can be tricky because portal returns summary data if number is invalid, and scraper freezes when reading the summary table
-- Scrape error handling: portal is offline or changes
 - Caching
 -- Based on get parameters, date & hour. If hourly data is available -> write cache, if not, don't. If cache is available, use that, if not, fetch new.
--- Find out when data is updated
-- textual indices also to single measurements, also to qualityIndex response
-- Additional sources? Are these duplicates to ilmanlaatuportaali.fi?
- - hel.fi
- - HSL
-
+-- Find out when data is updated. between 15 and 30 past every hour, varies between stations.
  
 Misc
 ----
