@@ -89,8 +89,23 @@ Class scraper
 		}
 		
 		// Metadata
+		
+		require "providers.php";
+		
+		$municipality = $municipalities[$this->station];
+		if (isset($providers[$municipality]))
+		{
+			$provider = $providers[$municipality];
+		}
+		else
+		{
+			$provider = "tuntematon";
+		}
+		
 		$result['metadata']['station'] = $data['Tunti'];
-		$result['metadata']['source'] = "Ilmanlaatuportaali, Ilmatieteen laitos";
+		$result['metadata']['municipality'] = $municipality;
+		$result['metadata']['provider'] = $provider;
+		$result['metadata']['source'] = "Ilmanlaatuportaali, http://www.ilmanlaatu.fi";
 		$result['metadata']['sourceURL'] = $this->url;
 		$result['metadata']['status'] = "unconfirmed measurements";
 		$result['metadata']['measurement'] = $this->measurement;
@@ -151,7 +166,7 @@ Class scraper
 //		print_r ($result); exit(); // debug
 		
 		
-		// ABBA: t‰m‰ alunperin kutsuvassa funktiossa
+		// ABBA: t√§m√§ alunperin kutsuvassa funktiossa
 		// If this data is missing
 		/*
 			if (FALSE === $dataArray)

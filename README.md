@@ -172,6 +172,7 @@ If you set callback=1 in the GET parameters, the data will be wrapped in airQual
 Todo/Plans
 ----------
 
+-Data providers to metadata field; http://www.ilmanlaatu.fi/yhteystiedot/yhteystiedot.php
 - Caching
 -- Based on get parameters, date & hour. If hourly data is available -> write cache, if not, don't. If cache is available, use that, if not, fetch new.
 -- Find out when data is updated. between 15 and 30 past every hour, varies between stations.
