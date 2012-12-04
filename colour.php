@@ -108,7 +108,8 @@ echo "klo " . $data['latest']['time'] . " @ <strong>" . $data['metadata']['stati
 	. "hengitettävät hiukkaset " . $data['latest']['parts']['particulateslt10um'] . "<br />\n"
 	. "hiilimonoksidi " . $data['latest']['parts']['carbonmonoxide'] . "<br />\n"
 	. "otsoni " . $data['latest']['parts']['ozone'] . "<br />\n"
-	. "rikkidioksidi " . $data['latest']['parts']['sulphurdioxide']
+	. "rikkidioksidi " . $data['latest']['parts']['sulphurdioxide'] . "<br />\n"
+	. "TIEDONTUOTTAJA:  " . $data['metadata']['provider']
 ;
 ?></p>
 </body>

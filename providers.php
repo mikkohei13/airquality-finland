@@ -1,5 +1,6 @@
 <?php
 
+// Source: http://www.ilmanlaatu.fi/yhteystiedot/yhteystiedot.php
 $providers['Espoo'] = "HSY Seututieto";
 $providers['Hamina'] = "Haminan kaupunki, ympäristötoimi";
 $providers['Harjavalta'] = "Harjavallan kaupunki";
@@ -42,7 +43,6 @@ $providers['Valkeakoski'] = "Valkeakosken kaupunki, ympäristöpalvelut";
 $providers['Vantaa'] = "HSY Seututieto";
 $providers['Varkaus'] = "Kuopion kaupunki, ympäristöpalvelut";
 $providers['Äänekoski'] = "Äänekosken kaupunki, ympäristönvalvonta";
-
 $providers['Hämeenlinna'] = "Ilmatieteen laitos, taustailmanlaatuasemat";
 $providers['Ilomantsi'] = "Ilmatieteen laitos, taustailmanlaatuasemat";
 $providers['Inari'] = "Ilmatieteen laitos, taustailmanlaatuasemat";
