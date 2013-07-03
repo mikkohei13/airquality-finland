@@ -70,6 +70,10 @@ Class scraper
 		curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile); 
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
 		$output = curl_exec ($ch);
+		
+		// Delete the cookie file
+		unset($ch);
+		unlink($ckfile);
 
 		$this->url = $urlHome;
 		return utf8_encode($output);
