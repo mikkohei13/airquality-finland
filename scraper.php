@@ -56,27 +56,49 @@ Class scraper
 		$time = date("YmdH");
 		$url = "http://www.ilmanlaatu.fi/php/table/observationsInTable.php?step=3600&today=1&timesequence=23&time=" . $time . "&station=" . $this->station . "";
 
-		// Create a cookie file
-		$ckfile = tempnam ("/tmp", "CURLCOOKIE");
-		
 		// Visit form page, set a cookie
-		$ch = curl_init ($urlHome);
-		curl_setopt ($ch, CURLOPT_COOKIEJAR, $ckfile); 
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec ($ch);
-		
-		// Scrape data page with the cookie
-		$ch = curl_init ($url);
-		curl_setopt ($ch, CURLOPT_COOKIEFILE, $ckfile); 
-		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-		$output = curl_exec ($ch);
-		
-		// Delete the cookie file
-		unset($ch);
-		unlink($ckfile);
+		$cookies = $this->fetch($urlHome, null, true);		
 
+		// Scrape data page with the cookie
+		$output = $this->fetch($url, $cookies, false);	
+		
 		$this->url = $urlHome;
+
+//		echo "/$output/"; echo "\n" . $urlHome . "\n" . $url . "\n"; exit("DEBUG END"); // debug
+
 		return utf8_encode($output);
+	}
+
+	// ------------------------------------------------------------------------
+	// Saves cookie data into variable instead of file; this avoids file permission problems
+	// by Stephan Miller / eristoddle / https://gist.github.com/eristoddle/8740954
+
+	public function fetch($url, $cookies = null, $returnCookie = false)
+	{
+	    $ch = curl_init();
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	    if($cookies){
+	        curl_setopt($ch, CURLOPT_COOKIE, implode(';',$cookies));
+	    }
+	    curl_setopt($ch, CURLOPT_HEADER, 1);
+	    $result = curl_exec($ch);
+	    list($header, $body) = explode("\r\n\r\n", $result, 2);
+	    $end = strpos($header, 'Content-Type');
+	    $start = strpos($header, 'Set-Cookie');
+	    $parts = explode('Set-Cookie:', substr($header, $start, $end - $start));
+	    $cookies = array();
+	    foreach ($parts as $co) {
+	        $cd = explode(';', $co);
+	        if (!empty($cd[0]))
+	            $cookies[] = $cd[0];
+	    }
+	    curl_close($ch);
+	    if ($returnCookie){
+	        return $cookies;
+	    }
+    	return $body;
 	}
 
 	// ------------------------------------------------------------------------
